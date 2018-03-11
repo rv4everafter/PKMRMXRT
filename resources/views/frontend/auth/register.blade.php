@@ -24,6 +24,7 @@
                                         ->placeholder(__('validation.attributes.frontend.enroller_id'))
                                         ->attribute('maxlength', 10)->required() }}
                                 </div><!--col-->
+                                <span id="enroller_name" style="color: green"></span>
                             </div><!--row-->
 
                             <div class="col-12 col-md-6">
@@ -35,6 +36,7 @@
                                         ->placeholder(__('validation.attributes.frontend.sponsor_id'))
                                         ->attribute('maxlength', 10)->required() }}
                                 </div><!--form-group-->
+                                 <span id="sponsor_name" style="color: green"></span>
                             </div><!--col-->
                         </div><!--row-->
                         <div class="row">
@@ -196,6 +198,24 @@
     @endif
     <script>
        $(document).ready(function($){
+           $('#enroller_id').change(function(){
+                $.ajax({
+                    type:"GET",
+                    url:"{{route('frontend.getenroller')}}?d="+$(this).val(),
+                    success: function(data) {
+                      $('#enroller_name').text('Enroller Name: '+data.enroller.full_name);
+                    },
+                  });
+           })
+           $('#sponsor_id').change(function(){
+                $.ajax({
+                    type:"GET",
+                    url:"{{route('frontend.getenroller')}}?d="+$(this).val(),
+                    success: function(data) {
+                      $('#sponsor_name').text('Sponsor Name: '+data.enroller.full_name);
+                    },
+                  });
+           })
            $('.dateofbirth').datepicker('setDate','01-01-1990');
             $("#register-form").validate({
                 // Specify validation rules
