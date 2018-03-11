@@ -14,7 +14,7 @@
             </li>
 
             @if ($logged_in_user->isAdmin())
-                <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth/admin*'), 'open') }} {{ active_class(Active::checkUriPattern('admin/auth/role*'), 'open') }}">
+<!--                <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth/admin*'), 'open') }} {{ active_class(Active::checkUriPattern('admin/auth/role*'), 'open') }}">
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="icon-user"></i> {{ __('menus.backend.access.title') }}
 
@@ -39,7 +39,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
                 <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth/user*'), 'open') }}">
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="icon-user"></i> {{ __('menus.backend.access.title1') }}

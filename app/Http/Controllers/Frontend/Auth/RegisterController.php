@@ -55,6 +55,9 @@ class RegisterController extends Controller
             ->withSocialiteLinks((new Socialite)->getSocialLinks());
     }
 
+    public function checkLevels($enroller_id, $sponsor_id){
+//        $users=User::where
+    }
     /**
      * @param RegisterRequest $request
      *
@@ -62,7 +65,7 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        
+//        $this->checkLevels($request['enroller_id'],$request['sponsor_id']);
         if(User::where('referral_code',$request['enroller_id'])->count() == 0){
               return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller id is invalid. Please check and try agin');
         }

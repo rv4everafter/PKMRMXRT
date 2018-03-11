@@ -322,6 +322,44 @@
                                 </div><!--col-->
                             </div><!--row-->  
                    </div><!--row-->  
+                   
+                   <div class="form-group row">
+                            {{ html()->label(__('validation.attributes.backend.access.users.active'))->class('col-md-2 form-control-label')->for('active') }}
+
+                            <div class="col-md-10">
+                                <label class="switch switch-3d switch-primary">
+                                    {{ html()->checkbox('active', true, '1')->class('switch-input') }}
+                                    <span class="switch-label"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div><!--col-->
+                        </div><!--form-group-->
+
+                        <div class="form-group row">
+                            {{ html()->label(__('validation.attributes.backend.access.users.confirmed'))->class('col-md-2 form-control-label')->for('confirmed') }}
+
+                            <div class="col-md-10">
+                                <label class="switch switch-3d switch-primary">
+                                    {{ html()->checkbox('confirmed', true, '1')->class('switch-input') }}
+                                    <span class="switch-label"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div><!--col-->
+                        </div><!--form-group-->
+
+                        @if (! config('access.users.requires_approval'))
+                            <div class="form-group row">
+                                {{ html()->label(__('validation.attributes.backend.access.users.send_confirmation_email') . '<br/>' . '<small>' .  __('strings.backend.access.users.if_confirmed_off') . '</small>')->class('col-md-2 form-control-label')->for('confirmation_email') }}
+
+                                <div class="col-md-10">
+                                    <label class="switch switch-3d switch-primary">
+                                        {{ html()->checkbox('confirmation_email', true, '1')->class('switch-input') }}
+                                        <span class="switch-label"></span>
+                                        <span class="switch-handle"></span>
+                                    </label>
+                                </div><!--col-->
+                            </div><!--form-group-->
+                        @endif
 
                         
                 </div><!--col-->
