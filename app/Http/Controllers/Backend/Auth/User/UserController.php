@@ -57,6 +57,15 @@ class UserController extends Controller
             ->withPermissions($permissionRepository->get(['id', 'name']));
     }
 
+    public function checkLevels($enroller_id, $sponsor_id){
+        $level=1;
+        do{
+            $user=User::where('referral_code',$sponsor_id)->first();
+            $level++;
+        }
+        while($user->sponsor_id==$enroller_id);
+       return $level;
+    }
     /**
      * @param StoreUserRequest $request
      *
@@ -65,6 +74,9 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
       
+        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
+            return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller\'s 15th level completed with this sponsor. Please try with other sponsor id.');
+        }
         if(User::where('referral_code',$request['enroller_id'])->count() == 0){
               return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller id is invalid. Please check and try agin');
         }

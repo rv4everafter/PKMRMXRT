@@ -278,6 +278,7 @@
 @push('after-scripts')
     <script>
        $(document).ready(function($){
+           $('.dateofbirth').datepicker('setDate','{{$logged_in_user->dob}}');
             var avatar_location = $("#avatar_location");
 
             if ($('input[name=avatar_type]:checked').val() === 'storage') {
