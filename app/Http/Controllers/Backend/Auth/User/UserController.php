@@ -137,8 +137,9 @@ class UserController extends Controller
     {
         $this->userRepository->update($user, $request->only(
             'first_name', 'last_name', 'email', 'avatar_type', 'avatar_location','enroller_id','sponsor_id','dob',
-        'pan_no','phone','gender','marital_status','receive_email','address1','address2','city','state','postal_code',
-        'nominee_name','nominee_relation','account_no','account_title','bank_name','branch_name','ifcs','swift_code'
+            'pan_no','phone','gender','marital_status','receive_email','address1','address2','city','state','postal_code',
+            'nominee_name','nominee_relation','account_no','account_title','bank_name','branch_name','ifcs','swift_code',
+            'active','confirmed','confirmation_email'
         ));
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.updated'));

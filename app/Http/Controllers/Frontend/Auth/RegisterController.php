@@ -56,7 +56,13 @@ class RegisterController extends Controller
     }
 
     public function checkLevels($enroller_id, $sponsor_id){
-//        $users=User::where
+        $level=1;
+        do{
+            $user=User::where('referral_code',$sponsor_id)->first();
+            $level++;
+        }
+        while($user->sponsor_id==$enroller_id);
+       return $level;
     }
     /**
      * @param RegisterRequest $request
@@ -65,7 +71,9 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-//        $this->checkLevels($request['enroller_id'],$request['sponsor_id']);
+        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
+            return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller already completed 15 level. Please try with other enroller id.');
+        }
         if(User::where('referral_code',$request['enroller_id'])->count() == 0){
               return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller id is invalid. Please check and try agin');
         }

@@ -171,8 +171,8 @@ class UserRepository extends BaseRepository
         if (! isset($data['permissions']) || ! count($data['permissions'])) {
             $data['permissions'] = [];
         }
-
         return DB::transaction(function () use ($user, $data) {
+        $email=$user->email;
             if ($user->update([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -198,11 +198,16 @@ class UserRepository extends BaseRepository
                 'branch_name' => $data['branch_name']?$data['branch_name']:null,
                 'ifcs' => $data['ifcs']?$data['ifcs']:null,
                 'swift_code' => $data['swift_code']?$data['swift_code']:null,
+                'active' => isset($data['active'])?1:0,
+                'confirmed' => isset($data['confirmed'])?1:0,
+                'confirmation_email' => isset($data['confirmation_email'])?1:0,
             ])) {
                 // Add selected roles/permissions
                 $user->syncRoles($data['roles']);
                 $user->syncPermissions($data['permissions']);
-
+                if (isset($data['confirmation_email']) && !isset($data['confirmed']) && $data['email']!=$email) {
+                    $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+                }
                 event(new UserUpdated($user));
 
                 return $user;
