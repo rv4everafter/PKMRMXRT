@@ -71,10 +71,7 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
-            return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller already completed 15 level. Please try with other enroller id.');
-        }
-        if(User::where('referral_code',$request['enroller_id'])->count() == 0){
+         if(User::where('referral_code',$request['enroller_id'])->count() == 0){
               return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller id is invalid. Please check and try agin');
         }
         if(User::where('referral_code',$request['sponsor_id'])->count() == 0){
@@ -82,6 +79,9 @@ class RegisterController extends Controller
         }
         if(User::where('sponsor_id',$request['sponsor_id'])->count() > 3){
               return redirect(route('frontend.auth.register'))->withFlashDanger('Sponser already has 3 direct downlines. Please try with other sponser');
+        }
+        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
+            return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller already completed 15 level. Please try with other enroller id.');
         }
         $user = $this->userRepository->create($request->only('enroller_id','sponsor_id','dob','pan_no','phone','gender','marital_status','receive_email',
                 'first_name', 'last_name', 'email', 'password'));

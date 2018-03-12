@@ -74,17 +74,17 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
       
-        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
-            return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller\'s 15th level completed with this sponsor. Please try with other sponsor id.');
-        }
         if(User::where('referral_code',$request['enroller_id'])->count() == 0){
-              return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller id is invalid. Please check and try agin');
+            return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller id is invalid. Please check and try agin');
         }
         if(User::where('referral_code',$request['sponsor_id'])->count() == 0){
-              return redirect(route('admin.auth.user.create'))->withFlashDanger('Sponser id is invalid. Please check and try agin');
+            return redirect(route('admin.auth.user.create'))->withFlashDanger('Sponser id is invalid. Please check and try agin');
         }
         if(User::where('sponsor_id',$request['sponsor_id'])->count() > 3){
-              return redirect(route('admin.auth.user.create'))->withFlashDanger('Sponser already has 3 direct downlines. Please try with other sponser');
+            return redirect(route('admin.auth.user.create'))->withFlashDanger('Sponser already has 3 direct downlines. Please try with other sponser');
+        }
+        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
+            return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller\'s 15th level completed with this sponsor. Please try with other sponsor id.');
         }
         $this->userRepository->create($request->only(
             'enroller_id',

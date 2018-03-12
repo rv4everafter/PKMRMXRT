@@ -185,7 +185,8 @@
                                         ->required() }}
                                 </div><!--col-->
                             </div><!--row-->  
-                   </div><!--row-->        
+                   </div><!--row-->  
+                   @if($logged_in_user->account_no == null)
                     <div class="form-group row" style="border-bottom: 1px solid #000">
                         <div class="col">
                             <strong>
@@ -264,7 +265,8 @@
                                         ->required() }}
                                 </div><!--col-->
                             </div><!--row-->  
-                   </div><!--row-->        
+                   </div><!--row-->      
+                   @endif
 
     <div class="row">
         <div class="col">
