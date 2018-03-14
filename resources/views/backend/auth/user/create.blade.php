@@ -428,7 +428,7 @@
                   bank_name: "required",
                   branch_name: "required",
                   ifcs: "required",
-                  swift_code: "required",
+//                  swift_code: "required",
                   phone: {
                       required:true,
                       number: true,

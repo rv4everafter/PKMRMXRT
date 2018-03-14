@@ -457,7 +457,7 @@
                   bank_name: "Please enter bank name",
                   branch_name: "Please enter branch name",
                   ifcs: "Please enter IFCS code",
-                  swift_code: "Please enter swift code",
+//                  swift_code: "Please enter swift code",
                   dob: "Please enter date of birth",
                   password: {
                     required: "Please provide a password",
