@@ -327,7 +327,7 @@
                   },
                   pan_no: {
                       required: true,
-                      number: true,
+//                      number: true,
                       minlength:10,
                       maxlength:10,
                   },
