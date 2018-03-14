@@ -318,7 +318,7 @@
                                         ->class('form-control')
                                         ->placeholder(__('validation.attributes.frontend.swift_code'))
                                         ->attribute('maxlength', 191)
-                                        ->required() }}
+                                         }}
                                 </div><!--col-->
                             </div><!--row-->  
                    </div><!--row-->  

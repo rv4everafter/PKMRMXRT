@@ -87,7 +87,7 @@ class UserController extends Controller
             return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller\'s 15th level completed with this sponsor. Please try with other sponsor id.');
         }
         $this->userRepository->create($request->only(
-            'first_name', 'last_name', 'email','enroller_id','sponsor_id','dob',
+            'first_name', 'last_name', 'email','enroller_id','sponsor_id','dob','password',
             'pan_no','phone','gender','marital_status','receive_email','address1','address2','city','state','postal_code',
             'nominee_name','nominee_relation','account_no','account_title','bank_name','branch_name','ifcs','swift_code',
             'active','confirmed','confirmation_email'
