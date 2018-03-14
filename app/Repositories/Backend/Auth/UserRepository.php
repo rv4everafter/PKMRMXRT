@@ -115,7 +115,7 @@ class UserRepository extends BaseRepository
                 'sponsor_id'        => $data['sponsor_id']?$data['sponsor_id']:null,
                 'marital_status'    => $data['marital_status']?$data['marital_status']:null,
                 'gender'            => $data['gender']?$data['gender']:null,
-                'dob'               => $data['dob']?date('Y-m-d',strtotime($data['dob']):null,
+                'dob'               => $data['dob']?date('Y-m-d',strtotime($data['dob'])):null,
                 'pan_no'            => $data['pan_no']?$data['pan_no']:null,
                 'phone'             => $data['phone']?$data['phone']:null,
                 'first_name' => $data['first_name'],
