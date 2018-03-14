@@ -187,7 +187,6 @@ class UserRepository extends BaseRepository
         if (! isset($data['permissions']) || ! count($data['permissions'])) {
             $data['permissions'] = [];
         }
-        dd($data);
         return DB::transaction(function () use ($user, $data) {
         $email=$user->email;
             if ($user->update([
