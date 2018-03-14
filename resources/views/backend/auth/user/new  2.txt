@@ -1,5 +1,0 @@
--show inroller id in profile
--login by referal code / phone
--enroller id & sponser id after enter show name
--eenroller id , sponser id display in team mangement
--reffer code wise display user to admin manager

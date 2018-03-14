@@ -234,7 +234,7 @@
                       maxlength:10,
                   },
                   pan_no: {
-                      number: true,
+//                      number: true,
                       minlength:10,
                       maxlength:10,
                   },

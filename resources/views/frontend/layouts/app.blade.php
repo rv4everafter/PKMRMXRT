@@ -20,6 +20,7 @@
         <!-- Otherwise apply the normal LTR layouts -->
         {{ style(mix('css/frontend.css')) }}
         {{ style('css/jquery-ui.css') }}
+        {{ style('css/vis.css') }}
         <style>
         .error{
         color:red
@@ -43,6 +44,7 @@
         {!! script(mix('js/frontend.js')) !!}
         {!! script('js/jquery.validate.js') !!}
         {!! script('js/jquery-ui.js') !!}
+        {!! script('js/vis.js') !!}
         <script>
         $(document).ready(function($){
             $( ".dateofbirth" ).datepicker({ dateFormat: 'dd-mm-yy', maxDate: '0'});
