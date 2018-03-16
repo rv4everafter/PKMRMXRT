@@ -63,7 +63,7 @@ class UserController extends Controller
             $user=User::where('referral_code',$sponsor_id)->first();
             $level++;
         }
-        while($user->sponsor_id==$enroller_id);
+        while($user->sponsor_id==$enroller_id || $level == 15);
        return $level;
     }
     /**
