@@ -59,9 +59,12 @@ class RegisterController extends Controller
         $level=1;
         do{
             $user=User::where('referral_code',$sponsor_id)->first();
+            $sponsor_id=$user->sponsor_id;
             $level++;
+            if($level==15)
+                break;
         }
-        while($user->sponsor_id==$enroller_id || $level == 15); 
+        while($user->referral_code!=$enroller_id); 
        return $level;
     }
     /**
@@ -80,12 +83,12 @@ class RegisterController extends Controller
         if(User::where('sponsor_id',$request['sponsor_id'])->count() > 3){
               return redirect(route('frontend.auth.register'))->withFlashDanger('Sponser already has 3 direct downlines. Please try with other sponser');
         }
-        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
+        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>=15){
             return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller already completed 15 level. Please try with other enroller id.');
         }
         $user = $this->userRepository->create($request->only('enroller_id','sponsor_id','dob','pan_no','phone','gender','marital_status','receive_email',
                 'first_name', 'last_name', 'email', 'password'));
-
+    
         // If the user must confirm their email or their account requires approval,
         // create the account but don't log them in.
         if (config('access.users.confirm_email') || config('access.users.requires_approval')) {

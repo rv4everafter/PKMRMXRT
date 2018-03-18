@@ -61,9 +61,12 @@ class UserController extends Controller
         $level=1;
         do{
             $user=User::where('referral_code',$sponsor_id)->first();
+            $sponsor_id=$user->sponsor_id;
             $level++;
+            if($level==15)
+                break;
         }
-        while($user->sponsor_id==$enroller_id || $level == 15);
+        while($user->referral_code!=$enroller_id); 
        return $level;
     }
     /**
@@ -83,8 +86,8 @@ class UserController extends Controller
         if(User::where('sponsor_id',$request['sponsor_id'])->count() > 3){
             return redirect(route('admin.auth.user.create'))->withFlashDanger('Sponser already has 3 direct downlines. Please try with other sponser');
         }
-        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>15){
-            return redirect(route('admin.auth.user.create'))->withFlashDanger('Enroller\'s 15th level completed with this sponsor. Please try with other sponsor id.');
+        if($this->checkLevels($request['enroller_id'],$request['sponsor_id'])>=15){
+            return redirect(route('frontend.auth.register'))->withFlashDanger('Enroller already completed 15 level. Please try with other enroller id.');
         }
         $this->userRepository->create($request->only(
             'first_name', 'last_name', 'email','enroller_id','sponsor_id','dob','password',

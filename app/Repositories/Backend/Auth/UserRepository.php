@@ -41,6 +41,15 @@ class UserRepository extends BaseRepository
             ->where('active', 0)
             ->count();
     }
+    /**
+     * @return mixed
+     */
+    public function getActiveCount() : int
+    {
+        return $this->model->where('sponsor_id','!=',null)
+            ->where('active', 1)
+            ->count();
+    }
     
     /**
      * @return mixed

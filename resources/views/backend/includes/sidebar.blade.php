@@ -51,8 +51,17 @@
 
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/user*')) }}" href="{{ route('admin.auth.user.index') }}">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/user')) }}" href="{{ route('admin.auth.user.index') }}">
                                 {{ __('labels.backend.access.users.management') }}
+
+                                @if (isset($active) && $active > 0)
+                                    <span class="badge badge-success">{{ $active }}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/user/deactivated')) }}" href="{{ route('admin.auth.user.deactivated') }}">
+                                {{ __('labels.backend.access.users.deactivated') }}
 
                                 @if (isset($inactive) && $inactive > 0)
                                     <span class="badge badge-danger">{{ $inactive }}</span>
