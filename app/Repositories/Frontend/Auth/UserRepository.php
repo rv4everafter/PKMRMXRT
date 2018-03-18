@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Storage;
 use App\Events\Frontend\Auth\UserConfirmed;
 use App\Events\Frontend\Auth\UserProviderRegistered;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class UserRepository.
  */
 class UserRepository extends BaseRepository
 {
+    public  $userList=[],$level=1,$prev=0,$treeid=0;
     /**
      * @return string
      */
@@ -81,7 +83,79 @@ class UserRepository extends BaseRepository
 
         throw new GeneralException(__('exceptions.backend.access.users.not_found'));
     }
+    
+     /**
+     * @return mixed
+     */
+    public function getInactiveCount() : int
+    {
+        return $this->model->where('sponsor_id','!=',null)
+            ->where('active', 0)
+            ->count();
+    }
+    /**
+     * @return mixed
+     */
+    public function getActiveCount() : int
+    {
+        return $this->model->where('sponsor_id','!=',null)
+            ->where('active', 1)
+            ->count();
+    }
+    /**
+     * @param int    $paged
+     * @param string $orderBy
+     * @param string $sort
+     *
+     * @return mixed
+     */
+    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc') : LengthAwarePaginator
+    {
+        return $this->model->where('sponsor_id','!=',null)
+            ->with('roles', 'permissions', 'providers')
+            ->active()
+            ->orderBy($orderBy, $sort)
+            ->paginate($paged);
+    }
+    /**
+     * @param int    $paged
+     * @param string $orderBy
+     * @param string $sort
+     *
+     * @return mixed
+     */
+    public function getActiveUserTreePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc')
+    {
+       $user_referral_code=auth()->user()->referral_code;
+//       $this->userList['nodes'][]=['id'=>0,'label'=>$user_referral_code];
+       $this->userLevels($user_referral_code, $user_referral_code, 1);
+       usort($this->userList['list'], function($a, $b) {
+            return $a['level'] - $b['level'];
+        });
+               $this->userList['nodes']=json_encode($this->userList['nodes']);
+               $this->userList['edges']=json_encode($this->userList['edges']);
 
+//        dd($this->userList);
+       return $this->userList;
+    }
+    
+    public function userLevels($enroller_id, $sponsor_id, $level){
+       $users=User::where('sponsor_id',$sponsor_id);
+       if($level<=15){
+           if($users->count()){
+               foreach ($users->get() as $user) {
+                    $user->level=$level;
+                    $this->userList['list'][]=$user->toArray();
+                    $this->userList['nodes'][]=array('id'=>$this->treeid,'label'=>$user->referral_code);
+                    if($this->treeid !=0)
+                    $this->userList['edges'][]=array('from'=>$this->prev,'to'=>$this->treeid);
+                    $this->prev=$this->treeid;
+                    $this->treeid++;
+                    $this->userLevels($enroller_id,$user->referral_code,$level+1);
+               }
+           }
+       }
+    }
     /**
      * @param array $data
      *

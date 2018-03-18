@@ -19,44 +19,56 @@
                 </div><!--card-header-->
 
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col col-md-12">
-                            <div id="mynetwork"></div>
-                        </div>
-<!--                        <div class="col col-sm-4 order-1 order-sm-2  mb-4">
-                            <div class="card mb-4 bg-light">
-                                <img class="card-img-top" src="{{ $logged_in_user->picture }}" alt="Profile Picture">
+                    <div role="tabpanel">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a href="#userlist" class="nav-link active" aria-controls="userlist" role="tab" data-toggle="tab">Users List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#treeview" class="nav-link" aria-controls="treeview" role="tab" data-toggle="tab">Users Tree Level Report</a>
+                            </li>
+                        </ul>
 
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        {{ $logged_in_user->name }}<br/>
-                                    </h4>
-
-                                    <p class="card-text">
-                                        <small>
-                                            <i class="fa fa-envelope-o"></i> {{ $logged_in_user->email }}<br/>
-                                            <i class="fa fa-calendar-check-o"></i> {{ __('strings.frontend.general.joined') }} {{ $logged_in_user->created_at->timezone(get_user_timezone())->format('F jS, Y') }}
-                                        </small>
-                                    </p>
-
-                                    <p class="card-text">
-
-                                        <a href="{{ route('frontend.user.account')}}" class="btn btn-info btn-sm mb-1">
-                                            <i class="fa fa-user-circle-o"></i> {{ __('navs.frontend.user.account') }}
-                                        </a>
-
-                                        @can('view backend')
-                                            &nbsp;<a href="{{ route ('admin.dashboard')}}" class="btn btn-danger btn-sm mb-1">
-                                                <i class="fa fa-user-secret"></i> {{ __('navs.frontend.user.administration') }}
-                                            </a>
-                                        @endcan
-                                    </p>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade show active pt-3" id="userlist" aria-labelledby="edit-tab">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ __('labels.backend.access.users.table.level') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.enroller_id') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.sponsor_id') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.referral_code') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.last_name') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.first_name') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.email') }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>   
+                                        @if (count($users['list'])>0)
+                                        @foreach ($users['list'] as $user)
+                                            <tr>
+                                                <td>{{ $user['level'] }}</td>
+                                                <td>{{ $user['enroller_id'] }}</td>
+                                                <td>{{ $user['sponsor_id'] }}</td>
+                                                <td>{{ $user['referral_code'] }}</td>
+                                                <td>{{ $user['last_name'] }}</td>
+                                                <td>{{ $user['first_name'] }}</td>
+                                                <td>{{ $user['email'] }}</td>
+                                            </tr>
+                                        @endforeach
+                                        @else
+                                          <tr><td colspan="9"><p class="text-center">{{ __('strings.backend.access.users.no_active') }}</p></td></tr>
+                                        @endif
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
-                        </div>col-md-4-->
-
-                        
-                    </div><!-- row -->
+                            </div><!--tab panel profile-->
+                            <div role="tabpanel" class="tab-pane fade show pt-3" id="treeview" aria-labelledby="profile-tab">
+                               <div id="mynetwork"></div>
+                            </div><!--tab panel profile-->
+                        </div><!--tab content-->
+                    </div><!--tab panel-->
                 </div> <!-- card-body -->
             </div><!-- card -->
         </div><!-- row -->
@@ -64,22 +76,13 @@
 @endsection
 @push('after-scripts')
     <script>
-       $(document).ready(function($){
-         var nodes = new vis.DataSet([
-        {id: 1, label: 'Node 1'},
-        {id: 2, label: 'Node 2'},
-        {id: 3, label: 'Node 3'},
-        {id: 4, label: 'Node 4'},
-        {id: 5, label: 'Node 5'}
-    ]);
+       $(document).ready(function($){  
+           var nodes='<?=$users["nodes"]?>';
+           var edges='<?=$users["edges"]?>';           
+         var nodes = new vis.DataSet(JSON.parse(nodes));
 
     // create an array with edges
-    var edges = new vis.DataSet([
-        {from: 1, to: 3},
-        {from: 1, to: 2},
-        {from: 2, to: 4},
-        {from: 2, to: 5}
-    ]);
+    var edges = new vis.DataSet(JSON.parse(edges));
 
     // create a network
     var container = document.getElementById('mynetwork');

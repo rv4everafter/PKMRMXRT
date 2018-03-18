@@ -122,6 +122,7 @@ return [
                 'table' => [
                     'confirmed'      => 'Confirmed',
                     'created'        => 'Created',
+                    'level'          => 'Level',
                     'email'          => 'E-mail',
                     'id'             => 'ID',
                     'last_updated'   => 'Last Updated',
