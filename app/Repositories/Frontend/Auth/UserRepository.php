@@ -21,7 +21,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
  */
 class UserRepository extends BaseRepository
 {
-    public  $userList=[],$level=1,$prev=0,$treeid=0;
+    public  $userList=['nodes'=>[],'edges'=>[],'list'=>[]],$level=1,$prev=0,$treeid=0;
     /**
      * @return string
      */
@@ -129,9 +129,11 @@ class UserRepository extends BaseRepository
        $user_referral_code=auth()->user()->referral_code;
 //       $this->userList['nodes'][]=['id'=>0,'label'=>$user_referral_code];
        $this->userLevels($user_referral_code, $user_referral_code, 1);
-       usort($this->userList['list'], function($a, $b) {
-            return $a['level'] - $b['level'];
-        });
+       if(isset($this->userList['list']) && count($this->userList['list'])>0){
+           usort($this->userList['list'], function($a, $b) {
+                return $a['level'] - $b['level'];
+            });
+       }
                $this->userList['nodes']=json_encode($this->userList['nodes']);
                $this->userList['edges']=json_encode($this->userList['edges']);
 
