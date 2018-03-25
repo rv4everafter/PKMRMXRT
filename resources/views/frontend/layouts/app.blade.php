@@ -47,7 +47,7 @@
         {!! script('js/vis.js') !!}
         <script>
         $(document).ready(function($){
-            $( ".dateofbirth" ).datepicker({ dateFormat: 'dd-mm-yy', maxDate: '0'});
+            $( ".dateofbirth" ).datepicker({ dateFormat: 'dd-mm-yy', maxDate: '0', changeYear: true, changeMonth: true});
         });
         </script>
         @stack('after-scripts')
