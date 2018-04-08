@@ -50,6 +50,17 @@ class UserRepository extends BaseRepository
             ->where('active', 1)
             ->count();
     }
+    /**
+     * @return mixed
+     */
+    public function getDeletedCount() : int
+    {
+        return $this->model->where('sponsor_id','!=',null)
+            ->onlyTrashed()
+            ->count();
+    }
+    
+    
     
     /**
      * @return mixed

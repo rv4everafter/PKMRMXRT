@@ -35,11 +35,13 @@ class SidebarComposer
         if (config('access.users.requires_approval')) {
             $view->with('pending_approval', $this->userRepository->getUnconfirmedCount())
                     ->with('inactive', $this->userRepository->getInactiveCount())
-                    ->with('active', $this->userRepository->getActiveCount());
+                    ->with('active', $this->userRepository->getActiveCount())
+                    ->with('deletedUsers', $this->userRepository->getDeletedCount());
         } else {
             $view->with('pending_approval', 0)
                     ->with('inactive', $this->userRepository->getInactiveCount())
-                    ->with('active', $this->userRepository->getActiveCount());
+                    ->with('active', $this->userRepository->getActiveCount())
+                    ->with('deletedUsers', $this->userRepository->getDeletedCount());
         }
     }
 }

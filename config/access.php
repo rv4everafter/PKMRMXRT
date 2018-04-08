@@ -23,6 +23,8 @@ return [
     'table_names' => [
         'users' => 'users',
         'admins' => 'users',
+        'commission' => 'transection',
+        'settings' => 'settings',
     ],
 
     /*

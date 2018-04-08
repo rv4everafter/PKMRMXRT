@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
             'first_name'        => 'Super',
             'last_name'         => 'Admin',
             'email'             => 'superadmin@tnbonce.com',
-            'password'          => bcrypt('1234'),
+            'password'          => bcrypt('super@TNBOnce'),
             'active'             => 1,
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
             'confirmed'         => true,
@@ -34,7 +34,7 @@ class UserTableSeeder extends Seeder
             'first_name'        => 'Backend',
             'last_name'         => 'User',
             'email'             => 'admin@tnbonce.com',
-            'password'          => bcrypt('1234'),
+            'password'          => bcrypt('user@TNBOnce'),
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
             'confirmed'         => true,
         ]);
@@ -45,7 +45,7 @@ class UserTableSeeder extends Seeder
             'email'             => 'user@tnbonce.com',
             'enroller_id'       => 'eroller1',
             'sponsor_id'        => 'sponsor1',
-            'password'          => bcrypt('1234'),
+            'password'          => bcrypt('user@TNBOnce'),
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
             'confirmed'         => true,
         ]);

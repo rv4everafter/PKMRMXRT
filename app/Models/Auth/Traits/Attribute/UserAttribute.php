@@ -304,6 +304,24 @@ trait UserAttribute
 				  '.$this->delete_permanently_button.'
 				</div>';
         }
+        
+        if (!$this->isActive()){
+            return '<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
+		  '.$this->show_button.'
+		  '.$this->edit_button.'
+		
+		  <div class="btn-group" role="group">
+			<button id="userActions" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  More
+			</button>
+			<div class="dropdown-menu" aria-labelledby="userActions">
+			  '.$this->status_button.'
+			  '.$this->delete_button.'
+			  '.$this->change_password_button.'
+			</div>
+		  </div>
+		</div>';
+        }
 
         return '
     	<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
@@ -320,7 +338,6 @@ trait UserAttribute
 			  '.$this->change_password_button.'
 			  '.$this->status_button.'
 			  '.$this->confirmed_button.'
-			  '.$this->delete_button.'
 			</div>
 		  </div>
 		</div>';

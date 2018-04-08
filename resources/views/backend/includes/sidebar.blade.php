@@ -6,7 +6,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ active_class(Active::checkUriPattern('admin/dashboard')) }}" href="{{ route('admin.dashboard') }}"><i class="icon-speedometer"></i> {{ __('menus.backend.sidebar.dashboard') }}</a>
+                <a class="nav-link {{ active_class(Active::checkUriPattern('admin/dashboard')) }}" href="{{ route('admin.dashboard') }}"  style="padding-left: 3px">
+                    <i class="icon-speedometer" style="margin-right: 0"></i> {{ __('menus.backend.sidebar.dashboard') }}
+                </a>
             </li>
 
             <li class="nav-title">
@@ -41,8 +43,8 @@
                     </ul>
                 </li>-->
                 <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth/user*'), 'open') }}">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="icon-user"></i> {{ __('menus.backend.access.title1') }}
+                    <a class="nav-link nav-dropdown-toggle" href="javascript:void(0)" style="padding-left: 3px">
+                        <i class="icon-user" style="margin-right: 0"></i> {{ __('menus.backend.access.title1') }}
 
                         @if (isset($inactive) && $inactive > 0)
                             <span class="badge badge-danger">{{ $inactive }}</span>
@@ -67,7 +69,17 @@
                                     <span class="badge badge-danger">{{ $inactive }}</span>
                                 @endif
                             </a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/user/deleted')) }}" href="{{ route('admin.auth.user.deleted') }}">
+                                {{ __('labels.backend.access.users.deleted') }}
+
+                                @if (isset($deletedUsers) && $deletedUsers > 0)
+                                    <span class="badge badge-danger">{{ $deletedUsers }}</span>
+                                @endif
+                            </a>
                         </li>
+                        
                     </ul>
                 </li>
             @endif
