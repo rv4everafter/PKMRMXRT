@@ -4,6 +4,7 @@ namespace App\Repositories\Frontend\Auth;
 
 use Carbon\Carbon;
 use App\Models\Auth\User;
+use App\Models\Auth\Transection;
 use Illuminate\Http\UploadedFile;
 use App\Models\Auth\SocialAccount;
 use Illuminate\Support\Facades\DB;
@@ -101,6 +102,16 @@ class UserRepository extends BaseRepository
         return $this->model->where('sponsor_id','!=',null)
             ->where('active', 1)
             ->count();
+    }
+    
+     /**
+     * @return mixed
+     */
+    public static function getCredit($referral_code) : float
+    {
+        return Transection::where('type','credit')
+                ->where('transection_to',$referral_code)
+            ->sum('amount');
     }
     /**
      * @param int    $paged

@@ -29,7 +29,7 @@
             @else
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuUser" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">{{ $logged_in_user->name }}</a>
+                       aria-haspopup="true" aria-expanded="false">{{ $logged_in_user->name }}(Credit: {{$user_credit}} Rs.)</a>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                         @can('view backend')

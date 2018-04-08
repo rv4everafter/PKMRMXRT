@@ -79,7 +79,6 @@
                                 @endif
                             </a>
                         </li>
-                        
                     </ul>
                 </li>
             @endif

@@ -53,6 +53,8 @@ class CreateUsersTable extends Migration
             $table->string('branch_name')->nullable();
             $table->string('ifcs')->nullable();
             $table->string('swift_code')->nullable();
+            $table->boolean('first_time')->default(true);
+            $table->string('other')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

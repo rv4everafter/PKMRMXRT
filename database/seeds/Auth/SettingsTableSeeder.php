@@ -21,9 +21,9 @@ class SettingsTableSeeder extends Seeder
         Settings::create([
             'code'        => 'enroller_income',
             'name'        => 'Enroller Commission',
-            'desc'        => 'Commission amount to be gethered from new created downline by you.',
+            'desc'        => 'Commission amount enroller income & downline income to be gethered from new created downline by you.',
             'type'        => 'commission',
-            'value'       => 800,
+            'value'       => 850,
             'order'       => 1,
         ]);
         

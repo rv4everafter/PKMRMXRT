@@ -23,7 +23,7 @@ return [
     'table_names' => [
         'users' => 'users',
         'admins' => 'users',
-        'commission' => 'transection',
+        'commission' => 'transections',
         'settings' => 'settings',
     ],
 

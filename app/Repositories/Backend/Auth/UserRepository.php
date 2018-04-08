@@ -3,6 +3,8 @@
 namespace App\Repositories\Backend\Auth;
 
 use App\Models\Auth\User;
+use App\Models\Auth\Transection;
+use App\Models\Auth\Settings;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\GeneralException;
 use App\Repositories\BaseRepository;
@@ -294,6 +296,10 @@ class UserRepository extends BaseRepository
             break;
 
             case 1:
+                if($user->first_time == 1){
+                    $user->first_time = 0;
+                    $this->sendCommition($user);
+                }                    
                 event(new UserReactivated($user));
             break;
         }
@@ -304,12 +310,48 @@ class UserRepository extends BaseRepository
 
         throw new GeneralException(__('exceptions.backend.access.users.mark_error'));
     }
+    
+    public function commissionByLevels($enroller_id, $sponsor_id, $referral_code, $downline_income){
+        $level=1;
+        do{
+            $user=User::where('referral_code',$sponsor_id)->first();
+            $transection = Transection::create([
+                        'transection_to'        => $sponsor_id?$sponsor_id:null,
+                        'transection_by'        => $referral_code?$referral_code:null,
+                        'previous_bal'          => 0,
+                        'type'                  => 'credit',
+                        'commission_type'       => 'downline',
+                        'amount'                => $downline_income,
+                    ]);
+            
+            $sponsor_id=$user->sponsor_id;
+            if($level==17)
+                break;
+            $level++;
+        }
+        while($user->referral_code!=$enroller_id); 
+       return $level;
+    }
+    
+    public function sendCommition($user){
+        $downline_income=Settings::where('code','downline_income')->first(['value']);
+        $this->commissionByLevels($user->enroller_id, $user->sponsor_id, $user->referral_code, $downline_income['value']);
+        $enroller_income=Settings::where('code','enroller_income')->first(['value']);
+        $transection = Transection::create([
+                        'transection_to'        => $user->enroller_id?$user->enroller_id:null,
+                        'transection_by'        => $user->referral_code?$user->referral_code:null,
+                        'previous_bal'          => 0,
+                        'type'                  => 'credit',
+                        'commission_type'       => 'enroller',
+                        'amount'                => $enroller_income['value'],
+                    ]);
+    }
 
     /**
      * @param User $user
      *
      * @return User
-     * @throws GeneralException
+     * @throws GeneralExceptioncode
      */
     public function confirm(User $user) : User
     {
