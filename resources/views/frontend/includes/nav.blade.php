@@ -5,6 +5,13 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    <div class="collapse navbar-collapse justify-content-start" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+             @auth
+             <li class="nav-item" style="border: 1px solid #ccc"><a href="{{route('frontend.user.dashboard')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.user.dashboard')) }}">{{ __('navs.frontend.dashboard') }}</a></li>
+            @endauth
+              <li class="nav-item" style="border: 1px solid #ccc"><a href="{{route('frontend.contact')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.contact')) }}">{{ __('navs.frontend.contact') }}</a></li>
+        </ul>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
             @if (config('locale.status') && count(config('locale.languages')) > 1)
@@ -16,9 +23,7 @@
                 </li>-->
             @endif
 
-            @auth
-                <li class="nav-item"><a href="{{route('frontend.user.dashboard')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.user.dashboard')) }}">{{ __('navs.frontend.dashboard') }}</a></li>
-            @endauth
+           
 
             @guest
                 <li class="nav-item"><a href="{{route('frontend.auth.login')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.auth.login')) }}">{{ __('navs.frontend.login') }}</a></li>
@@ -29,7 +34,7 @@
             @else
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuUser" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">{{ $logged_in_user->name }}(Credit: {{$user_credit}} Rs.)</a>
+                       aria-haspopup="true" aria-expanded="false"><b>{{ ucfirst($logged_in_user->name) }}</b>(Credit: <b>{{$user_credit}} Rs.</b>)<br/>Ref.Code:<b> {{$logged_in_user->referral_code}}</b></a>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
                         @can('view backend')
@@ -41,8 +46,6 @@
                     </div>
                 </li>
             @endguest
-
-            <li class="nav-item"><a href="{{route('frontend.contact')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.contact')) }}">{{ __('navs.frontend.contact') }}</a></li>
         </ul>
     </div>
 </nav>

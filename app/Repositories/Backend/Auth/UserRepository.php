@@ -315,36 +315,51 @@ class UserRepository extends BaseRepository
         $level=1;
         do{
             $user=User::where('referral_code',$sponsor_id)->first();
-            $transection = Transection::create([
-                        'transection_to'        => $sponsor_id?$sponsor_id:null,
-                        'transection_by'        => $referral_code?$referral_code:null,
-                        'previous_bal'          => 0,
-                        'type'                  => 'credit',
-                        'commission_type'       => 'downline',
-                        'amount'                => $downline_income,
-                    ]);
-            
-            $sponsor_id=$user->sponsor_id;
-            if($level==17)
-                break;
-            $level++;
+            if($user && $level<16){
+                $transection = Transection::create([
+                            'transection_to'        => $sponsor_id?$sponsor_id:null,
+                            'transection_by'        => $referral_code?$referral_code:null,
+                            'previous_bal'          => 0,
+                            'type'                  => 'credit',
+                            'commission_type'       => 'downline',
+                            'amount'                => $downline_income,
+                        ]);
+
+                $sponsor_id=$user->sponsor_id;
+                $level++;
+            }else{
+                    break;
+                }
         }
-        while($user->referral_code!=$enroller_id); 
+        while(1); 
        return $level;
     }
     
     public function sendCommition($user){
         $downline_income=Settings::where('code','downline_income')->first(['value']);
+        //income of downline for each level till enroller
         $this->commissionByLevels($user->enroller_id, $user->sponsor_id, $user->referral_code, $downline_income['value']);
         $enroller_income=Settings::where('code','enroller_income')->first(['value']);
-        $transection = Transection::create([
-                        'transection_to'        => $user->enroller_id?$user->enroller_id:null,
-                        'transection_by'        => $user->referral_code?$user->referral_code:null,
-                        'previous_bal'          => 0,
-                        'type'                  => 'credit',
-                        'commission_type'       => 'enroller',
-                        'amount'                => $enroller_income['value'],
-                    ]);
+        //enroller income
+        if($user && $user->enroller_id && $user->enroller_id!='eroller1'){
+            $transection = Transection::create([
+                            'transection_to'        => $user->enroller_id?$user->enroller_id:null,
+                            'transection_by'        => $user->referral_code?$user->referral_code:null,
+                            'previous_bal'          => 0,
+                            'type'                  => 'credit',
+                            'commission_type'       => 'enroller',
+                            'amount'                => $enroller_income['value'],
+                        ]);
+            //enroller downline income
+//            $transection = Transection::create([
+//                            'transection_to'        => $user->enroller_id?$user->enroller_id:null,
+//                            'transection_by'        => $user->referral_code?$user->referral_code:null,
+//                            'previous_bal'          => 0,
+//                            'type'                  => 'credit',
+//                            'commission_type'       => 'downline',
+//                            'amount'                => $downline_income['value'],
+//                        ]);
+        }
     }
 
     /**

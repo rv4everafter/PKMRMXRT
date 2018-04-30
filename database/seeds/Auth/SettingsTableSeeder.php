@@ -23,7 +23,7 @@ class SettingsTableSeeder extends Seeder
             'name'        => 'Enroller Commission',
             'desc'        => 'Commission amount enroller income & downline income to be gethered from new created downline by you.',
             'type'        => 'commission',
-            'value'       => 850,
+            'value'       => 800,
             'order'       => 1,
         ]);
         

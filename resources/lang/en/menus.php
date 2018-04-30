@@ -17,6 +17,7 @@ return [
         'access' => [
             'title' => 'Access Management',
             'title1' => 'Team Management',
+            'title2' => 'Commission Management',
 
             'roles' => [
                 'all'        => 'All Roles',

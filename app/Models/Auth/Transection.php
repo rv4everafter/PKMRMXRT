@@ -5,6 +5,7 @@ namespace App\Models\Auth;
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use  App\Models\Auth\Traits\Attribute\TransectionAttribute;
 
 /**
  * Class Transection.
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transection extends Model
 {
     use SoftDeletes,
+        TransectionAttribute,
         Uuid;
 
     /**

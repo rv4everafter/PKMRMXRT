@@ -165,6 +165,24 @@ return [
 
                 'view' => 'View User',
             ],
+             'commission' => [
+                'pending'              => 'Pending',
+                'payment'              => 'Payment',
+                'completed'              => 'Completed',
+                'management'          => 'Commission Management',
+                'table' => [
+                    'email'          => 'E-mail',
+                    'id'             => 'ID',
+                    'last_updated'   => 'Last Updated',
+                    'name'           => 'Name',
+                    'first_name'     => 'First Name',
+                    'last_name'      => 'Last Name',
+                    'referral_code'      => 'Profile Code',
+                    'amount'        => 'Amount (Rs.)',
+                    'total'         => 'user total|users total',
+                    'action'         => 'Actions',
+                ],
+            ],
         ],
     ],
 

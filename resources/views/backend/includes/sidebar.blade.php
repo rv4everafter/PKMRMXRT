@@ -80,7 +80,31 @@
                             </a>
                         </li>
                     </ul>
+                </li> 
+                <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth/commission*'), 'open') }}">
+                    <a class="nav-link nav-dropdown-toggle" href="javascript:void(0)" style="padding-left: 3px">
+                        <i class="icon-user" style="margin-right: 0"></i> {{ __('menus.backend.access.title2') }}
+                    </a>
+
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/commission/pending')) }}" href="{{ route('admin.auth.commission.pending') }}">
+                                {{ __('labels.backend.access.commission.pending') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/commission/payment')) }}" href="{{ route('admin.auth.commission.payment') }}">
+                                {{ __('labels.backend.access.commission.payment') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/commission/completed')) }}" href="{{ route('admin.auth.commission.completed') }}">
+                                {{ __('labels.backend.access.commission.completed') }}
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+                
             @endif
 
 <!--            <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/log-viewer*'), 'open') }}">

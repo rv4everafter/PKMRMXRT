@@ -122,5 +122,14 @@ Route::group([
         Route::group(['namespace' => 'Role'], function () {
             Route::resource('role', 'RoleController', ['except' => ['show']]);
         });
+        /*
+         * Commission Management
+         */
+        Route::group(['namespace' => 'Commission'], function () {
+            Route::get('commission/pending', 'CommissionController@pending')->name('commission.pending');
+            Route::get('commission/payment', 'CommissionController@payment')->name('commission.payment');
+            Route::get('commission/completed', 'CommissionController@completed')->name('commission.completed');
+            Route::get('commission/{user}/paymented', 'CommissionController@paymented')->name('commission.paymented');
+        });
     });
 });

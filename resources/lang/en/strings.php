@@ -31,6 +31,9 @@ return [
                 'no_deleted' => 'There are no deleted admins.',
                 'restore_admin_confirm' => 'Restore this admin to its original state?',
             ],
+            'commission' => [
+               'no_active' => 'There are no payments available.',
+            ]
         ],
 
         'dashboard' => [

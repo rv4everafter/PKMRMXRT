@@ -138,10 +138,17 @@ class UserRepository extends BaseRepository
     public function getActiveUserTreePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc')
     {
        $user_referral_code=auth()->user()->referral_code;
-       $this->userList['nodes'][]=['id'=>0,'label'=>$user_referral_code];
+       $this->userList['nodes'][]=['id'=>0,'label'=>$user_referral_code,'level'=>0];
+        $this->userList['edges'][]=['from'=>0,'to'=>1,'level'=>0];
        $this->userLevels($user_referral_code, $user_referral_code, 1, 0);
        if(isset($this->userList['list']) && count($this->userList['list'])>0){
            usort($this->userList['list'], function($a, $b) {
+                return $a['level'] - $b['level'];
+            });
+           usort($this->userList['edges'], function($a, $b) {
+                return $a['level'] - $b['level'];
+            });
+           usort($this->userList['nodes'], function($a, $b) {
                 return $a['level'] - $b['level'];
             });
        }
@@ -151,24 +158,28 @@ class UserRepository extends BaseRepository
        return $this->userList;
     }
     
-    public function userLevels($enroller_id, $sponsor_id, $level, $prev_tree_id=-1){
+    public function userLevels($enroller_id, $sponsor_id, $level, $prev_tree_id=0){
        $users=User::where('sponsor_id',$sponsor_id);
        if($level<=15){
+//           echo '<pre>';
            if($users->count()){
                foreach ($users->get() as $user) {
                     $user->level=$level;
                     $tree_id=$this->treeid;
                     $this->userList['list'][]=$user->toArray();
-                        $this->userList['nodes'][]=array('id'=>$tree_id,'label'=>$user->referral_code);
+                        $this->userList['nodes'][]=array('level'=>$level,'id'=>$tree_id,'label'=>$user->full_name.'\n('.$user->referral_code.')');
                         if($tree_id && $prev_tree_id > -1){
-                            $this->userList['edges'][]=array('from'=>$prev_tree_id,'to'=>$tree_id);
+                            $this->userList['edges'][]=array('level'=>$level,'from'=>$prev_tree_id,'to'=>$tree_id);
                         }
+//                        print_r($this->userList['nodes']);
+//                        print_r($this->userList['edges']);
                     $this->prev=$tree_id;
                     $this->treeid++;
                     $this->userLevels($enroller_id,$user->referral_code,$level+1,$tree_id);
                }
+//               dd($this->userList);
            }
-       }
+       } 
     }
     /**
      * @param array $data
