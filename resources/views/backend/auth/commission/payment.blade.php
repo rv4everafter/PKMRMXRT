@@ -79,6 +79,10 @@
                                                     <td>{{ $user->phone }}</td>
                                                 </tr>
                                                 <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.pan_no') }}</th>
+                                                    <td>{{ $user->pan_no }}</td>
+                                                </tr>
+                                                <tr>
                                                     <th>{{ __('labels.frontend.user.profile.account_no') }}</th>
                                                     <td>{{ $user->account_no }}</td>
                                                 </tr>
