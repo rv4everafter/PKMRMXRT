@@ -350,15 +350,6 @@ class UserRepository extends BaseRepository
                             'commission_type'       => 'enroller',
                             'amount'                => $enroller_income['value'],
                         ]);
-            //enroller downline income
-//            $transection = Transection::create([
-//                            'transection_to'        => $user->enroller_id?$user->enroller_id:null,
-//                            'transection_by'        => $user->referral_code?$user->referral_code:null,
-//                            'previous_bal'          => 0,
-//                            'type'                  => 'credit',
-//                            'commission_type'       => 'downline',
-//                            'amount'                => $downline_income['value'],
-//                        ]);
         }
     }
 

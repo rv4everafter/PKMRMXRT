@@ -32,6 +32,7 @@
                             <th>{{ __('labels.backend.access.commission.table.first_name') }}</th>
                             <th>{{ __('labels.backend.access.commission.table.email') }}</th>
                             <th>{{ __('labels.backend.access.commission.table.amount') }}</th>
+                            <th>{{ __('labels.backend.access.commission.table.tds_amount') }}</th>
                             <th>{{ __('labels.backend.access.commission.table.action') }}</th>
                         </tr>
                         </thead>
@@ -43,8 +44,69 @@
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->amount }}</td>
-                                <td> <a href="{{route('admin.auth.commission.paymented',$user)}}" class="btn btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Completed?"></i></a></td>
+                                <td>{{ number_format((float)$user->amount, 2, '.', '') }}</td>
+                                 <td>{{ number_format((float)($user->amount-($user->amount*5/100)),2, '.', '') }}</td>
+                                <td>
+                                    <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#userAccount{{$user->id}}" aria-expanded="false" aria-controls="collapseExample">
+                                         A/c Details
+                                    </button>
+                                    <a href="{{route('admin.auth.commission.paymented',$user)}}" class="btn btn-success"><i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Completed?"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;padding: 0" colspan="7">
+                                    <div class="collapse" id="userAccount{{$user->id}}">
+                                        <div class="card card-body">
+                                         <div class="table-responsive">
+                                            <table class="table table-striped table-hover table-bordered">
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.referral_code') }}</th>
+                                                    <td>{{ $user->referral_code }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.enroller_id') }}</th>
+                                                    <td>{{ $user->enroller_id }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.sponsor_id') }}</th>
+                                                    <td>{{ $user->sponsor_id }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.email') }}</th>
+                                                    <td>{{ $user->email }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.phone') }}</th>
+                                                    <td>{{ $user->phone }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.account_no') }}</th>
+                                                    <td>{{ $user->account_no }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.account_title') }}</th>
+                                                    <td>{{ $user->account_title }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.bank_name') }}</th>
+                                                    <td>{{ $user->bank_name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.branch_name') }}</th>
+                                                    <td>{{ $user->branch_name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.ifcs') }}</th>
+                                                    <td>{{ $user->ifcs }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('labels.frontend.user.profile.swift_code') }}</th>
+                                                    <td>{{ $user->swift_code }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         @else

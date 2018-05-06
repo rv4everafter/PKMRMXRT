@@ -42,7 +42,7 @@
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->amount }}</td>
+                                <td>{{ number_format((float)$user->amount, 2, '.', '') }}</td>
                             </tr>
                         @endforeach
                         @else
