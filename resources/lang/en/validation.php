@@ -190,6 +190,7 @@ return [
             'email'                     => 'E-mail Address',
             'sponsor_id'                => 'Account Sponsor ID',
             'enroller_id'               => "Your Enroller's ID",
+            'profile_code'               => "Profile Code",
             'gender'                    => 'Gender (optional)',
             'marital_status'            => 'Marital Status (optional)',
             'first_name'                => 'First Name',

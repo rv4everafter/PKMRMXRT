@@ -19,7 +19,8 @@ return [
     ],
 
     'frontend' => [
-        'contact' => 'Contact',
+        'contact' => 'Contact Us',
+        'grievance' => 'Grievance',
         'dashboard' => 'Dashboard',
         'login'     => 'Login',
         'macros'    => 'Macros',

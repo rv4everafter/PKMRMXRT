@@ -113,7 +113,7 @@ return [
                 'deactivated'         => 'Deactivated Users',
                 'deleted'             => 'Deleted Users',
                 'edit'                => 'Edit User',
-                'management'          => 'User Management',
+                'management'          => 'Users',
                 'deactivated'          => 'Deactivated Users',
                 'no_permissions'      => 'No Permissions',
                 'no_roles'            => 'No Roles to set.',

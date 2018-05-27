@@ -16,8 +16,8 @@ return [
     'backend' => [
         'access' => [
             'title' => 'Access Management',
-            'title1' => 'Team Management',
-            'title2' => 'Commission Management',
+            'title1' => 'Team',
+            'title2' => 'Commission',
 
             'roles' => [
                 'all'        => 'All Roles',

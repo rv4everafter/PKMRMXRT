@@ -4,46 +4,46 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col col-sm-12 align-self-center">
-            <div class="col-sm-6" style="float: left">
+        <div class="col col-sm-8 align-self-center">
+<!--            <div class="col-sm-6" style="float: left">
                 <div class="card">
                     <div class="card-header">
                         <strong>
                             Corporate Office
                         </strong>
-                    </div><!--card-header-->
+                    </div>card-header
 
                     <div class="card-body">
                             <div class="row">
                                 <div class="col">
                                     <label><b>TNBONCE HERITAGE CARE INDIA(OPC) PRIVATE LIMITED</b></label>
-                                </div><!--col-->
-                            </div><!--row-->
+                                </div>col
+                            </div>row
                             <div class="row">
                                 <div class="col">
                                     <label>2/F/F E-WARD,</label>
-                                </div><!--col-->
-                            </div><!--row-->
+                                </div>col
+                            </div>row
                             <div class="row">
                                 <div class="col">
                                     <label>NEAR ARJUN COMPLEX,</label>
-                                </div><!--col-->
-                            </div><!--row-->
+                                </div>col
+                            </div>row
                             <div class="row">
                                 <div class="col">
                                     <label>KUBERNAGAR, AHMEDABAD,</label>
-                                </div><!--col-->
-                            </div><!--row-->
+                                </div>col
+                            </div>row
                             <div class="row">
                                 <div class="col">
                                     <label>GUJRAT, INDIA - 382340</label>
-                                </div><!--col-->
-                            </div><!--row-->
+                                </div>col
+                            </div>row
                             <div class="row">
                                 <div class="col">
                                     <label>Customer Care No : 7069229475</label>
-                                </div><!--col-->
-                            </div><!--row-->
+                                </div>col
+                            </div>row
                             <div class="row">
                                 <div class="col-md-2">
                                     <label>Emails :</label>
@@ -60,20 +60,34 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div><!--row-->
-                    </div><!--card-body--> 
-                </div><!--card-->
-            </div>
-            <div class="col-sm-6" style="float: right">
+                            </div>row
+                    </div>card-body 
+                </div>ca
+rd
+            </div>-->
                 <div class="card">
                     <div class="card-header">
                         <strong>
-                            {{ __('labels.frontend.contact.box_title') }}
+                            Grievance Cell
                         </strong>
                     </div><!--card-header-->
 
                     <div class="card-body">
-                        {{ html()->form('POST', route('frontend.contact.send'))->open() }}
+                        {{ html()->form('POST', route('frontend.contact.sendgrievance'))->open() }}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        {{ html()->label(__('validation.attributes.frontend.profile_code'))->for('profile_code') }}
+
+                                        {{ html()->text('profile_code')
+                                            ->class('form-control')
+                                            ->placeholder(__('validation.attributes.frontend.profile_code'))
+                                            ->attribute('maxlength', 10)
+                                            ->required()
+                                            ->autofocus() }}
+                                    </div><!--form-group-->
+                                </div><!--col-->
+                            </div><!--row-->
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -84,7 +98,7 @@
                                             ->placeholder(__('validation.attributes.frontend.name'))
                                             ->attribute('maxlength', 191)
                                             ->required()
-                                            ->autofocus() }}
+                                             }}
                                     </div><!--form-group-->
                                 </div><!--col-->
                             </div><!--row-->
@@ -140,7 +154,6 @@
                         {{ html()->form()->close() }}
                     </div><!--card-body-->
                 </div><!--card-->
-            </div>
         </div><!--col-->
     </div><!--row-->
 @endsection

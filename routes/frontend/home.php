@@ -6,7 +6,9 @@
  */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('contact', 'ContactController@index')->name('contact');
+Route::get('grievance', 'ContactController@grievance')->name('grievance');
 Route::post('contact/send', 'ContactController@send')->name('contact.send');
+Route::post('contact/sendgrievance', 'ContactController@sendGrievance')->name('contact.sendgrievance');
 
 Route::get('enroller', 'HomeController@getEnroller')->name('getenroller');
 /*

@@ -100,6 +100,10 @@ return [
             'email_body_title' => 'You have a new contact form request: Below are the details:',
             'subject' => 'A new :app_name contact form submission!',
         ],
+        'grievance' => [
+            'email_body_title' => 'You have a new grievance form request: Below are the details:',
+            'subject' => 'A new :app_name grievance form submission!',
+        ],
     ],
 
     'frontend' => [
