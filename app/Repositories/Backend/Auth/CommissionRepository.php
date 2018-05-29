@@ -34,6 +34,7 @@ class CommissionRepository extends BaseRepository
         return $this->model->select(DB::raw('ROUND(SUM(transections.amount),2) as amount'),'users.referral_code','users.email','users.first_name'
                 ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','pending')
+                ->where('users.id','!=',3)
                ->join('transections','users.referral_code','=','transections.transection_to')
                 ->having(DB::raw('SUM(transections.amount)'),'<',500)
             ->orderBy($orderBy, $sort)
@@ -54,6 +55,7 @@ class CommissionRepository extends BaseRepository
         return $this->model->select(DB::raw('ROUND(SUM(transections.amount),2) as amount'),'users.id','users.referral_code','users.email','users.first_name'
                 ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','pending')
+                ->where('users.id','!=',3)
                ->join('transections','users.referral_code','=','transections.transection_to')
                 ->having(DB::raw('SUM(transections.amount)'),'>',500)
             ->orderBy($orderBy, $sort)
@@ -73,6 +75,7 @@ class CommissionRepository extends BaseRepository
         return $this->model->select(DB::raw('ROUND(SUM(transections.amount),2) as amount'),'users.referral_code','users.email','users.first_name'
                 ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','completed')
+                ->where('users.id','!=',3)
                ->join('transections','users.referral_code','=','transections.transection_to')
             ->orderBy($orderBy, $sort)
             ->groupBy('transections.transection_to','users.id','users.uuid','users.referral_code','users.first_name','users.last_name',

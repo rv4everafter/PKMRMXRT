@@ -39,7 +39,7 @@
                        aria-haspopup="true" aria-expanded="false" style="padding-bottom: 0;margin-bottom: 0">
                         <label title="Profile Code" style="font-weight: bold;font-size: 14px">{{ ucfirst($logged_in_user->name) }}</label>
                         <label title="Profile Code" style="font-weight: bold;font-size: 12px">Code:{{$logged_in_user->referral_code}}</label>
-                        <label title="Available Credit" class="label-success" style="font-weight: bold;font-size: 12px">Credit:{{$user_credit}}</label>
+                        <label title="Available Credit" class="label-success" style="font-weight: bold;font-size: 12px">Credit:{{$user_credit['credit']}}</label>
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">

@@ -22,7 +22,7 @@
                     <div role="tabpanel">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a href="#userlist" class="nav-link active" aria-controls="userlist" role="tab" data-toggle="tab">Users List ({{count($users['list'])}})</a>
+                                <a href="#userlist" class="nav-link active" aria-controls="userlist" role="tab" data-toggle="tab">Users List ({{'Enrolled: '.$user_credit['enrolled_user'].' Total:'.count($users['list'])}})</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#treeview" class="nav-link" aria-controls="treeview" role="tab" data-toggle="tab">Users Tree Level Report</a>

@@ -107,11 +107,11 @@ class UserRepository extends BaseRepository
      /**
      * @return mixed
      */
-    public static function getCredit($referral_code) : float
+    public static function getCredit($referral_code) : Array
     {
-        return Transection::where('type','credit')
+        return ['credit'=>Transection::where('type','credit')
                 ->where('transection_to',$referral_code)
-            ->sum('amount');
+            ->sum('amount'),'enrolled_user'=>User::where('enroller_id',$referral_code)->count()];
     }
     /**
      * @param int    $paged
