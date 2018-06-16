@@ -45,20 +45,8 @@
                                 </div><!--col-->
                             </div><!--row-->
                             <div class="row">
-                                <div class="col-md-2">
-                                    <label>Emails :</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="row">
-                                        <div class="col">
-                                           <label>1. info@tnbonce.com</label>                                           
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                           <label>2. tnbbussiness@gmail.com</label>                                           
-                                        </div>
-                                    </div>
+                                <div class="col">
+                                    <label>Email : tnbbussiness@gmail.com</label>
                                 </div>
                             </div><!--row-->
                     </div><!--card-body--> 

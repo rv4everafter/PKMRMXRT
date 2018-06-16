@@ -33,10 +33,13 @@
             @include('includes.partials.logged-in-as')
             @include('frontend.includes.nav')
 
-            <div class="container">
+            <div class="{{(Active::checkUriPattern('/'))?'':'container'}}">
                 @include('includes.partials.messages')
                 @yield('content')
             </div><!-- container -->
+            @if(Active::checkUriPattern('/'))
+            @include('frontend.includes.footer')
+            @endif
         </div><!-- #app -->
 
         <!-- Scripts -->
@@ -45,6 +48,7 @@
         {!! script('js/jquery.validate.js') !!}
         {!! script('js/jquery-ui.js') !!}
         {!! script('js/vis.js') !!}
+        
         <script>
         $(document).ready(function($){
             $( ".dateofbirth" ).datepicker({ dateFormat: 'dd-mm-yy', maxDate: '0', changeYear: true, changeMonth: true});

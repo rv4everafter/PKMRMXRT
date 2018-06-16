@@ -186,6 +186,8 @@ return [
         ],
 
         'frontend' => [
+            'complaint_no'              => 'Complaint No',
+            'type'                      => 'Type',
             'avatar'                    => 'Avatar Location',
             'email'                     => 'E-mail Address',
             'sponsor_id'                => 'Account Sponsor ID',

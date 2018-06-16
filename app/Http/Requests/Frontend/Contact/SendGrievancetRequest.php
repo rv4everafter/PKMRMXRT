@@ -28,7 +28,8 @@ class SendGrievanceRequest extends FormRequest
     {
         return [
             'profile_code' => 'required',
-            'name' => 'required',
+            'type' => 'required',
+            'full_name' => 'required',
             'email' => 'required',
             'message' => 'required',
         ];

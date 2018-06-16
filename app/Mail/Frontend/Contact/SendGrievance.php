@@ -40,7 +40,7 @@ class SendGrievance extends Mailable
             ->view('frontend.mail.grievance')
             ->text('frontend.mail.grievance-text')
             ->subject(__('strings.emails.grievance.subject', ['app_name' => app_name()]))
-            ->from($this->request->email, $this->request->name)
-            ->replyTo($this->request->email, $this->request->name);
+            ->from($this->request->email, $this->request->full_name)
+            ->replyTo($this->request->email, $this->request->full_name);
     }
 }

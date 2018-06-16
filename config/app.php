@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel '.app()->version().' rv4ever'),
+    'name' => env('APP_NAME', 'TNBONCE HERITAGE CARE INDIA PVT. LTD. '),
 
     /*
     |--------------------------------------------------------------------------

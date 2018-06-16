@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'info@tnbonce.com'),
-        'name' => env('MAIL_FROM_NAME', 'TNBONCE PRIVATE LIMITED.'),
+        'name' => env('MAIL_FROM_NAME', 'TNBONCE HERITAGE INDIA CARE PRIVATE LIMITED.'),
     ],
 
     /*

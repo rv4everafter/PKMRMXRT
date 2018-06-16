@@ -102,7 +102,12 @@ return [
         ],
         'grievance' => [
             'email_body_title' => 'You have a new grievance form request: Below are the details:',
-            'subject' => 'A new :app_name grievance form submission!',
+            'subject' => 'A new grievance form submission in TNBONCE!',
+        ],
+        'autoreply' => [
+            'email_body_head' => 'Dear :name',
+            'email_body_title' => 'Sorry for your inconvinience. Your complaint received and your complaint no is :complaint_no. We will respond back to the e-mail provided as soon as we can.',
+            'subject' => 'Grivance Submission Received by :app_name',
         ],
     ],
 
