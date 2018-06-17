@@ -489,16 +489,11 @@ frequently  -->
 contact  -->
 
 <section class="white-bg contact-3 clearfix o-hidden">
-   <div class="container-fluid pos-r">
-    <div class="row row-eq-height full-height">
-      <div class="col-xl-6 col-lg-6 map-side g-map" id="map" data-type='black'>
-       <div class="contact-map">
-     </div>       
-    </div>
-   </div>
-  </div>
   <div class="container">
   <div class="row justify-content-end">
+      <div class="col-lg-7">
+          <iframe width="100%" height="630" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=23.0750428,72.642444&amp;key=AIzaSyAMIy8ZXX9OqvmKji3z_4t1wXDWHThqRV0"></iframe>
+      </div>
     <div class="col-lg-5"> 
      <div class="contact-3-info page-section-ptb">
       <div class="clearfix">
