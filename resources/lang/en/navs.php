@@ -21,6 +21,7 @@ return [
     'frontend' => [
         'contact' => 'Contact Us',
         'grievance' => 'Grievance',
+        'opportunities' => 'Opportunities',
         'dashboard' => 'Dashboard',
         'login'     => 'Login',
         'macros'    => 'Macros',

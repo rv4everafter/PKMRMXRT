@@ -10,6 +10,7 @@ use App\Mail\Frontend\Contact\SendAutoReply;
 use App\Http\Requests\Frontend\Contact\SendContactRequest;
 use App\Http\Requests\Frontend\Contact\SendGrievanceRequest;
 use App\Models\Auth\Grievance;
+use Illuminate\Http\Request;
 
 /**
  * Class ContactController.
@@ -50,5 +51,10 @@ class ContactController extends Controller
         Mail::send(new SendGrievance($request));
         Mail::send(new SendAutoReply($request));
         return redirect()->back()->withFlashSuccess(__('alerts.frontend.contact.sent'));
+    }
+   
+     public function opportunities(Request $request)
+    {
+        return view('frontend.opportunities');
     }
 }

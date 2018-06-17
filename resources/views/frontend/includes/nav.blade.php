@@ -62,7 +62,7 @@
                                         @auth
                                         <li><a href="{{ route('frontend.user.dashboard') }}"> Dashboard </a></li>
                                         @endauth
-                                        <li><a href="{{ route('frontend.index') }}"> Opportunities </a></li>
+                                        <li><a href="{{ route('frontend.opportunities') }}"> Opportunities </a></li>
                                         <li><a href="{{ route('frontend.grievance') }}"> Grievance </a></li>
                             <!--            <li><a href="javascript:void(0)">Contact Us <i class="fa fa-angle-down fa-indicator"></i></a>
                                              drop down multilevel  
@@ -122,6 +122,7 @@
             @endauth
             <!--<li class="nav-item" ><a href="{{route('frontend.contact')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.contact')) }}">{{ __('navs.frontend.contact') }}</a></li>-->
             <li class="nav-item" ><a href="{{route('frontend.grievance')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.grievance')) }}">{{ __('navs.frontend.grievance') }}</a></li>
+            <li class="nav-item" ><a href="{{route('frontend.opportunities')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.opportunities')) }}">{{ __('navs.frontend.opportunities') }}</a></li>
         </ul>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
