@@ -37,7 +37,7 @@ class User extends Authenticatable
         'first_name', 'last_name', 'email', 'avatar_type', 'avatar_location','enroller_id','sponsor_id','dob',
         'pan_no','phone','gender','marital_status','receive_email','address1','address2','city','state','postal_code',
         'nominee_name','nominee_relation','account_no','account_title','bank_name','branch_name','ifcs','swift_code',
-        'password','password_changed_at','active','confirmation_code','confirmed','timezone','first_time','other'
+        'password','password_changed_at','active','confirmation_code','confirmed','timezone','first_time','other','isUser'
     ];
 
     /**
@@ -45,7 +45,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['remember_token'];
 
     /**
      * @var array

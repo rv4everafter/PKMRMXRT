@@ -190,6 +190,7 @@ return [
             'type'                      => 'Type',
             'avatar'                    => 'Avatar Location',
             'email'                     => 'E-mail Address',
+            'code'                     => 'Code',
             'sponsor_id'                => 'Account Sponsor ID',
             'enroller_id'               => "Your Enroller's ID",
             'profile_code'               => "Profile Code",

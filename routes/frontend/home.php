@@ -33,5 +33,6 @@ Route::group(['middleware' => ['auth', 'password_expires']], function () {
          * User Profile Specific
          */
         Route::patch('profile/update', 'ProfileController@update')->name('profile.update');
+        Route::get('profile/newcode/{user}', 'ProfileController@newCode')->name('profile.newcode');
     });
 });

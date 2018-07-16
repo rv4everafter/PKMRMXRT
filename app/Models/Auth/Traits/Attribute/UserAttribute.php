@@ -342,10 +342,19 @@ trait UserAttribute
 		  </div>
 		</div>';
     }
-//                          '.$this->clear_session_button.'
-//			  '.$this->login_as_button.'
-//			  '.$this->change_password_button.'
-//			  '.$this->status_button.'
-//			  '.$this->confirmed_button.'
-//			  '.$this->delete_button.'
+    
+    /**
+     * @return string
+     */
+    public function getCodeButtonAttribute()
+    {
+          return '<a href="'.route('frontend.user.profile.newcode', $this).'" name="confirm_item" class="btn btn-info"  data-trans-title="'.__('strings.backend.general.newcode').'"><i class="fa fa-qrcode" data-toggle="tooltip" data-placement="top" title="Generate a new code"></i></a> ';
+    }
+    
+    public function getUserActionButtonsAttribute()
+    {
+        return '<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
+				  '.$this->code_button.'
+				</div>';
+    }
 }

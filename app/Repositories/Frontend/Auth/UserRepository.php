@@ -161,23 +161,19 @@ class UserRepository extends BaseRepository
     public function userLevels($enroller_id, $sponsor_id, $level, $prev_tree_id=0){
        $users=User::where('sponsor_id',$sponsor_id);
        if($level<=15){
-//           echo '<pre>';
            if($users->count()){
                foreach ($users->get() as $user) {
                     $user->level=$level;
                     $tree_id=$this->treeid;
-                    $this->userList['list'][]=$user->toArray();
+                    $this->userList['list'][]=$user;
                         $this->userList['nodes'][]=array('level'=>$level,'id'=>$tree_id,'label'=>$user->full_name.'\n('.$user->referral_code.')');
                         if($tree_id && $prev_tree_id > -1){
                             $this->userList['edges'][]=array('level'=>$level,'from'=>$prev_tree_id,'to'=>$tree_id);
                         }
-//                        print_r($this->userList['nodes']);
-//                        print_r($this->userList['edges']);
                     $this->prev=$tree_id;
                     $this->treeid++;
                     $this->userLevels($enroller_id,$user->referral_code,$level+1,$tree_id);
                }
-//               dd($this->userList);
            }
        } 
     }
@@ -190,6 +186,7 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data)
     {
+//        dd($data);
         return DB::transaction(function () use ($data) {
             $user = parent::create([
                 'enroller_id'       => $data['enroller_id']?$data['enroller_id']:null,
@@ -203,6 +200,7 @@ class UserRepository extends BaseRepository
                 'first_name'        => $data['first_name'],
                 'last_name'         => $data['last_name'],
                 'email'             => $data['email'],
+                'isUser'            => isset($data['isUser']) && $data['isUser']==false ?false:true,
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'active'            => 0,
                 'password'          => bcrypt($data['password']),
@@ -224,7 +222,7 @@ class UserRepository extends BaseRepository
              *
              * If this is a social account they are confirmed through the social provider by default
              */
-            if (config('access.users.confirm_email')) {
+            if (config('access.users.confirm_email') && $user->isUser) {
                 // Pretty much only if account approval is off, confirm email is on, and this isn't a social account.
                 $user->notify(new UserNeedsConfirmation($user->confirmation_code));
             }
@@ -461,5 +459,9 @@ class UserRepository extends BaseRepository
         }
 
         return $result;
+    }
+    
+    public function getUser($code) {
+        return User::where('referral_code',$code)->get();
     }
 }

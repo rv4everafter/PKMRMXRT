@@ -67,7 +67,7 @@ class CommissionController extends Controller
     public function completed(Request $request)
     {
         return view('backend.auth.commission.completed')
-            ->withCommission($this->commissionRepository->getCompletedPaymentPaginated(25, 'users.id', 'asc'));
+            ->withCommission($this->commissionRepository->getCompletedPaymentPaginated(25, 'users.id', 'asc',$request->only('monthFilter','yearFilter')));
     }
 
   

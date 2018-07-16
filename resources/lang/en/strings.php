@@ -44,6 +44,7 @@ return [
         'general' => [
             'all_rights_reserved' => 'All Rights Reserved.',
             'are_you_sure'        => 'Are you sure you want to do this?',
+            'newcode'        => 'Are you sure you want to generate new code? your code will inactive untill payment received by admin. Please contact admin for any inconvenience/query on this.',
             'boilerplate_link'    => 'TNB ONCE',
             'continue'            => 'Continue',
             'member_since'        => 'Member since',
@@ -149,6 +150,7 @@ return [
             'email_changed_notice' => 'You must confirm your new e-mail address before you can log in again.',
             'profile_updated'  => 'Profile successfully updated.',
             'password_updated' => 'Password successfully updated.',
+            'code_created' => 'Code generated successfully. Please contact administrator for sctivstion',
         ],
 
         'welcome_to' => 'Welcome to :place',

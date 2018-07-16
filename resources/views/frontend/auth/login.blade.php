@@ -17,12 +17,12 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    {{ html()->label(__('validation.attributes.frontend.email'))->for('email') }}
+                                    {{ html()->label(__('validation.attributes.frontend.profile_code'))->for('refferal_code') }}
 
-                                    {{ html()->email('email')
+                                    {{ html()->text('referral_code')
                                         ->class('form-control')
-                                        ->placeholder(__('validation.attributes.frontend.email'))
-                                        ->attribute('maxlength', 191)
+                                        ->placeholder(__('validation.attributes.frontend.profile_code'))
+                                        ->attribute('maxlength', 10)
                                         ->required() }}
                                 </div><!--form-group-->
                             </div><!--col-->

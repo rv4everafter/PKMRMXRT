@@ -70,13 +70,22 @@ class CommissionRepository extends BaseRepository
      *
      * @return LengthAwarePaginator
      */
-    public function getCompletedPaymentPaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc') : LengthAwarePaginator
+    public function getCompletedPaymentPaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc', $req) : LengthAwarePaginator
     {
+        $month=isset($req['monthFilter'])?$req['monthFilter']:date('m');
+        $year=isset($req['yearFilter'])?$req['yearFilter']:date('Y');
+        $firstdate=date('01-'.$month.'-'.$year.' 00:00:00');
+        $lastdate=date('t-'.$month.'-'.$year.' 23:59:59');
         return $this->model->select(DB::raw('ROUND(SUM(transections.amount),2) as amount'),'users.referral_code','users.email','users.first_name'
                 ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','completed')
                 ->where('users.id','!=',3)
-               ->join('transections','users.referral_code','=','transections.transection_to')
+               
+               ->join('transections',function($join) use($firstdate,$lastdate){
+//                    $join->whereBetween('transections.created_at',[$firstdate,$lastdate]);
+//                    $join->where('transections.created_at','<=',$lastdate);
+                   $join->on('users.referral_code','=','transections.transection_to');
+               })
             ->orderBy($orderBy, $sort)
             ->groupBy('transections.transection_to','users.id','users.uuid','users.referral_code','users.first_name','users.last_name',
                     'users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.email')

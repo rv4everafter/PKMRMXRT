@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend\User;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\Auth\UserRepository;
 use App\Http\Requests\Frontend\User\UpdateProfileRequest;
+use Illuminate\Http\Request;
+use App\Models\Auth\User;
 
 /**
  * Class ProfileController.
@@ -49,5 +51,40 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('frontend.user.account')->withFlashSuccess(__('strings.frontend.user.profile_updated'));
+    }
+    
+     public function checkLevels($enroller_id, $sponsor_id){
+        $level=1;
+        do{
+            $user=User::where('referral_code',$sponsor_id)->first();
+            $sponsor_id=$user->sponsor_id;
+            if($level==17)
+                break;
+            $level++;
+        }
+        while($user->referral_code!=$enroller_id); 
+       return $level;
+    }
+    
+    public function newCode(User $user) {
+        $curr_user=$this->userRepository->getUser(auth()->user()->referral_code);
+        $duplicateuser=$curr_user->toArray()[0];
+        $duplicateuser['enroller_id']=auth()->user()->referral_code;
+        $duplicateuser['sponsor_id']=$user->referral_code;
+        $duplicateuser['isUser']=false;
+        if(User::where('referral_code',$duplicateuser['enroller_id'])->count() == 0){
+            return redirect()->back()->withFlashDanger('Enroller id is invalid. Please check and try agin');
+        }
+        if(User::where('referral_code',$duplicateuser['sponsor_id'])->count() == 0){
+            return redirect()->back()->withFlashDanger('Sponser id is invalid. Please check and try agin');
+        }
+        if(User::where('sponsor_id',$duplicateuser['sponsor_id'])->count() >= 3){
+            return redirect()->back()->withFlashDanger('Sponser already has 3 direct downlines. Please try with other sponser');
+        }
+        if($this->checkLevels($duplicateuser['enroller_id'],$duplicateuser['sponsor_id'])>16){
+            return redirect()->back()->withFlashDanger('Enroller already completed 15 level. Please try with other enroller id.');
+        }
+        $res=$this->userRepository->create($duplicateuser);
+        return redirect()->route('frontend.user.dashboard')->withFlashSuccess(__('strings.frontend.user.code_created'));
     }
 }

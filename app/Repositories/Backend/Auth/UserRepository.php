@@ -296,9 +296,12 @@ class UserRepository extends BaseRepository
             break;
 
             case 1:
-                if($user->first_time == 1){
+                if($user->first_time == 1 && $user->isUser){
                     $user->first_time = 0;
                     $this->sendCommition($user);
+                }else if ($user->first_time == 1 && !$user->isUser){
+                    $user->first_time = 0;
+                    $this->setCommitionSchedule($user);
                 }                    
                 event(new UserReactivated($user));
             break;
@@ -350,6 +353,34 @@ class UserRepository extends BaseRepository
                             'commission_type'       => 'enroller',
                             'amount'                => $enroller_income['value'],
                         ]);
+        }
+    }
+    
+    public function setCommitionSchedule($user){
+        $downline_income=Settings::where('code','downline_income')->first(['value']);
+        //income of downline for each level till enroller
+        $this->commissionByLevels($user->enroller_id, $user->sponsor_id, $user->referral_code, $downline_income['value']);
+        $enroller_income=Settings::where('code','virtual_code')->first(['value']);
+        //enroller income
+        if($user && $user->enroller_id && $user->enroller_id!='eroller1'){
+            $v_user_main=User::where("referral_code",$user->enroller_id)->first();
+            $v_user_main->virtual_payment_count+=1;
+            $v_user_main->save();
+            $last_transection = Transection::where("transection_to",$user->enroller_id)
+                    ->where("commission_type", "virtual")->where("transection_by", $user->referral_code)
+                    ->orderBy("created_at","desc")->limit(1)->first(["times"]);
+//            dd($last_transection);
+            $count=  isset($last_transection) && isset($last_transection["times"])?$last_transection["times"]:0;
+            $transection = Transection::create([
+                            'transection_to'        => $user->enroller_id?$user->enroller_id:null,
+                            'transection_by'        => $user->referral_code?$user->referral_code:null,
+                            'previous_bal'          => 0,
+                            'times'                 => $count+1,
+                            'type'                  => 'credit',
+                            'commission_type'       => 'virtual',
+                            'amount'                => $enroller_income['value'],
+                        ]);
+            
         }
     }
 

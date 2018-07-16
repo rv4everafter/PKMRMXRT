@@ -62,7 +62,7 @@ return [
         /*
          * Login username to be used by the controller.
          */
-        'username' => 'email',
+        'username' => 'referral_code',
 
         /*
          * Session Database Driver Only
@@ -76,7 +76,7 @@ return [
          * How many days before users have to change their passwords
          * false is off
          */
-        'password_expires_days' => env('PASSWORD_EXPIRES_DAYS', 30),
+        'password_expires_days' => env('PASSWORD_EXPIRES_DAYS', 360),
     ],
     
     /*

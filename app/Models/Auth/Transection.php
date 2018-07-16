@@ -22,7 +22,7 @@ class Transection extends Model
      * @var array
      */
     protected $fillable = [
-        'uuid','transection_to','transection_by','previous_bal','type','commission_type','amount','status','created_at','updated_at'
+        'uuid','transection_to','transection_by','previous_bal','type','commission_type','amount','status','created_at','updated_at','times'
     ];
 
     /**

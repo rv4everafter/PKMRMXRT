@@ -313,7 +313,7 @@ our-service -->
                   </div>
                    <div class="feature-info">
                   <h5>24/7 Customer support</h5>
-                  <p>Great support Contact No: +(706) 922-9475</p>
+                  <p>Great support Contact No: +91 7069229475</p>
                   </div>
                </div>
           </div>

@@ -25,7 +25,7 @@
                 <h6 class="text-white mb-30 mt-10 text-uppercase">Contact Us</h6>
                 <ul class="addresss-info"> 
                     <li><i class="fa fa-map-marker"></i> <p>Address: 2/F/F E-WARD, NEAR ARJUN COMPLEX, KUBERNAGAR, AHMEDABAD, GUJRAT - 382340</p> </li>
-                    <li><i class="fa fa-phone"></i> <a href="tel:7042791249"> <span>+(706) 922-9475 </span> </a> </li>
+                    <li><i class="fa fa-phone"></i> <a href="tel:7042791249"> <span>+91 7069229475 </span> </a> </li>
                     <li><i class="fa fa-envelope-o"></i>Email: tnbbussiness@gmail.com</li>
                 </ul>
             </div>
