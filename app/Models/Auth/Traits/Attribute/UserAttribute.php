@@ -348,7 +348,7 @@ trait UserAttribute
      */
     public function getCodeButtonAttribute()
     {
-          return '<a href="'.route('frontend.user.profile.newcode', $this).'" name="confirm_item" class="btn btn-info"  data-trans-title="'.__('strings.backend.general.newcode').'"><i class="fa fa-qrcode" data-toggle="tooltip" data-placement="top" title="Generate a new code"></i></a> ';
+          return '<a href="'.route('frontend.user.profile.newcode', $this).'" name="confirm_item" class="btn btn-info"  data-trans-title="'.__('strings.backend.general.newcode').'"><i class="fa fa-plus-square" data-toggle="tooltip" data-placement="top" title="Generate a new code"></i> Create Downline</a> ';
     }
     
     public function getUserActionButtonsAttribute()

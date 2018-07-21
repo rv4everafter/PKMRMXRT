@@ -87,4 +87,27 @@ class ProfileController extends Controller
         $res=$this->userRepository->create($duplicateuser);
         return redirect()->route('frontend.user.dashboard')->withFlashSuccess(__('strings.frontend.user.code_created'));
     }
+    
+     public function directCode(Request $request) {
+        $curr_user=$this->userRepository->getUser(auth()->user()->referral_code);
+        $duplicateuser=$curr_user->toArray()[0];
+        $ref_code=auth()->user()->referral_code;
+        $duplicateuser['enroller_id']=$ref_code;
+        $duplicateuser['sponsor_id']=$ref_code;
+        $duplicateuser['isUser']=false;
+        if(User::where('referral_code',$duplicateuser['enroller_id'])->count() == 0){
+            return redirect()->back()->withFlashDanger('Enroller id is invalid. Please check and try agin');
+        }
+        if(User::where('referral_code',$duplicateuser['sponsor_id'])->count() == 0){
+            return redirect()->back()->withFlashDanger('Sponser id is invalid. Please check and try agin');
+        }
+        if(User::where('sponsor_id',$duplicateuser['sponsor_id'])->count() >= 3){
+            return redirect()->back()->withFlashDanger('You already have 3 direct downlines. Please try with other sponser');
+        }
+        if($this->checkLevels($duplicateuser['enroller_id'],$duplicateuser['sponsor_id'])>16){
+            return redirect()->back()->withFlashDanger('You already completed 15 level. Please try with new account.');
+        }
+        $res=$this->userRepository->create($duplicateuser);
+        return redirect()->route('frontend.user.dashboard')->withFlashSuccess(__('strings.frontend.user.code_created'));
+    }
 }

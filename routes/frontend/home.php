@@ -34,5 +34,6 @@ Route::group(['middleware' => ['auth', 'password_expires']], function () {
          */
         Route::patch('profile/update', 'ProfileController@update')->name('profile.update');
         Route::get('profile/newcode/{user}', 'ProfileController@newCode')->name('profile.newcode');
+        Route::get('profile/directcode', 'ProfileController@directCode')->name('profile.directcode');
     });
 });

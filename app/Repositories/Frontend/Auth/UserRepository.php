@@ -160,13 +160,21 @@ class UserRepository extends BaseRepository
     
     public function userLevels($enroller_id, $sponsor_id, $level, $prev_tree_id=0){
        $users=User::where('sponsor_id',$sponsor_id);
+       $activeUser= ["border"=>'#2B7CE9', "background"=> '#97C2FC', 
+                                "highlight"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF'],
+                                "hover"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF']];
+       $inActiveUser= ["border"=>'#2B7CE9', "background"=> '#d3d3d3', 
+                                "highlight"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF'],
+                                "hover"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF']];
        if($level<=15){
            if($users->count()){
                foreach ($users->get() as $user) {
                     $user->level=$level;
+                    $userStyle=$user->active?$activeUser:$inActiveUser;
                     $tree_id=$this->treeid;
                     $this->userList['list'][]=$user;
-                        $this->userList['nodes'][]=array('level'=>$level,'id'=>$tree_id,'label'=>$user->full_name.'\n('.$user->referral_code.')');
+                        $this->userList['nodes'][]=array('level'=>$level,'id'=>$tree_id,'label'=>$user->full_name.'\n('.$user->referral_code.')', 
+                            'color' =>$userStyle);
                         if($tree_id && $prev_tree_id > -1){
                             $this->userList['edges'][]=array('level'=>$level,'from'=>$prev_tree_id,'to'=>$tree_id);
                         }

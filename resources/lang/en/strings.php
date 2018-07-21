@@ -44,7 +44,7 @@ return [
         'general' => [
             'all_rights_reserved' => 'All Rights Reserved.',
             'are_you_sure'        => 'Are you sure you want to do this?',
-            'newcode'        => 'Are you sure you want to generate new code? your code will inactive untill payment received by admin. Please contact admin for any inconvenience/query on this.',
+            'newcode'        => 'Are you sure you want to create a new code under this downline? After this request please contact admin for activation',
             'boilerplate_link'    => 'TNB ONCE',
             'continue'            => 'Continue',
             'member_since'        => 'Member since',
