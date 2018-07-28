@@ -37,7 +37,7 @@ class CommissionController extends Controller
     public function pending(Request $request)
     {
         return view('backend.auth.commission.pending')
-            ->withCommission($this->commissionRepository->getPendingPaymentPaginated(25, 'users.id', 'asc'));
+            ->withCommission($this->commissionRepository->getPendingPaymentPaginated(25, 'users.id', 'asc', $request->only('monthFilter','yearFilter')));
     }
      /**
      * @param ManageUserRequest $request
@@ -47,7 +47,7 @@ class CommissionController extends Controller
     public function payment(Request $request)
     {
         return view('backend.auth.commission.payment')
-            ->withCommission($this->commissionRepository->getPaymentPaginated(25, 'users.id', 'asc'));
+            ->withCommission($this->commissionRepository->getPaymentPaginated(25, 'users.id', 'asc', $request->only('monthFilter','yearFilter')));
     }
      /**
      * @param ManageUserRequest $request

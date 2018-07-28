@@ -111,7 +111,16 @@ class UserRepository extends BaseRepository
     {
         return ['credit'=>Transection::where('type','credit')
                 ->where('transection_to',$referral_code)
+                ->Where('status','pending')
             ->sum('amount'),'enrolled_user'=>User::where('enroller_id',$referral_code)->count()];
+    }
+    
+    /**
+     * @return Boolean
+     */
+    public static function getDirectDownline($referral_code) : Bool
+    {
+        return User::where('sponsor_id',$referral_code)->count() < 3;
     }
     /**
      * @param int    $paged
@@ -160,20 +169,27 @@ class UserRepository extends BaseRepository
     
     public function userLevels($enroller_id, $sponsor_id, $level, $prev_tree_id=0){
        $users=User::where('sponsor_id',$sponsor_id);
-       $activeUser= ["border"=>'#2B7CE9', "background"=> '#97C2FC', 
-                                "highlight"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF'],
-                                "hover"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF']];
-       $inActiveUser= ["border"=>'#2B7CE9', "background"=> '#d3d3d3', 
-                                "highlight"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF'],
-                                "hover"=> [ "border"=> '#2B7CE9', "background"=> '#D2E5FF']];
+       $activeUser= ["border"=>'#2B7CE9', "background"=> '#5794e5', 
+                                "highlight"=> [ "border"=> '#2B7CE9', "background"=> '#5794e5'],
+                                "hover"=> [ "border"=> '#2B7CE9', "background"=> '#5794e5']];
+       $inActiveUser= ["border"=>'#2B7CE9', "background"=> '#e0e5fc', 
+                                "highlight"=> [ "border"=> '#2B7CE9', "background"=> '#e0e5fc'],
+                                "hover"=> [ "border"=> '#2B7CE9', "background"=> '#e0e5fc']];
+       $activeVirtualUser= ["border"=>'#ba343c', "background"=> '#9b222a', 
+                                "highlight"=> [ "border"=> '#ba343c', "background"=> '#9b222a'],
+                                "hover"=> [ "border"=> '#ba343c', "background"=> '#9b222a']];
+       $inActiveVirtualUser= ["border"=>'#ba343c', "background"=> '#edafb3', 
+                                "highlight"=> [ "border"=> '#ba343c', "background"=> '#e24852'],
+                                "hover"=> [ "border"=> '#ba343c', "background"=> '#e24852']];
        if($level<=15){
            if($users->count()){
                foreach ($users->get() as $user) {
                     $user->level=$level;
-                    $userStyle=$user->active?$activeUser:$inActiveUser;
+                    $user->direct=$this->getDirectDownline($user->referral_code);
+                    $userStyle=$user->active && $user->isUser?$activeUser : $user->active && !$user->isUser? $activeVirtualUser: !$user->active && $user->isUser ? $inActiveUser : $inActiveVirtualUser;
                     $tree_id=$this->treeid;
                     $this->userList['list'][]=$user;
-                        $this->userList['nodes'][]=array('level'=>$level,'id'=>$tree_id,'label'=>$user->full_name.'\n('.$user->referral_code.')', 
+                        $this->userList['nodes'][]=array('margin'=>10,'level'=>$level,'id'=>$tree_id,'label'=>$user->full_name.'\n('.$user->referral_code.')', 
                             'color' =>$userStyle);
                         if($tree_id && $prev_tree_id > -1){
                             $this->userList['edges'][]=array('level'=>$level,'from'=>$prev_tree_id,'to'=>$tree_id);

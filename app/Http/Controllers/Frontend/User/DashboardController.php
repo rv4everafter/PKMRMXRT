@@ -20,6 +20,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('frontend.user.dashboard')->withUsers($this->userRepository->getActiveUserTreePaginated(25, 'id', 'asc'));
+        return view('frontend.user.dashboard')->withUsers($this->userRepository->getActiveUserTreePaginated(25, 'id', 'asc'))->with("direct",$this->userRepository->getDirectDownline(auth()->user()->referral_code));
     }
 }

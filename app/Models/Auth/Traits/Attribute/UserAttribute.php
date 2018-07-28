@@ -39,6 +39,17 @@ trait UserAttribute
     /**
      * @return string
      */
+    public function getIsUserLabelAttribute()
+    {
+            if ($this->isUser) {
+                return '<span class="badge badge-success">'.__('labels.general.yes').'</span>';
+            } else {
+                return '<span class="badge badge-danger">'.__('labels.general.no').'</span>';
+            }
+    }
+    /**
+     * @return string
+     */
     public function getRolesLabelAttribute()
     {
         $roles = $this->getRoleNames()->toArray();
@@ -322,6 +333,25 @@ trait UserAttribute
 		  </div>
 		</div>';
         }
+        
+        if(!$this->isUser){
+            return '
+    	<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
+		  '.$this->show_button.'
+		  '.$this->edit_button.'
+		
+		  <div class="btn-group" role="group">
+			<button id="userActions" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  More
+			</button>
+			<div class="dropdown-menu" aria-labelledby="userActions">
+			  '.$this->clear_session_button.'
+			  '.$this->status_button.'
+			  '.$this->confirmed_button.'
+			</div>
+		  </div>
+		</div>';
+        }
 
         return '
     	<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
@@ -348,7 +378,7 @@ trait UserAttribute
      */
     public function getCodeButtonAttribute()
     {
-          return '<a href="'.route('frontend.user.profile.newcode', $this).'" name="confirm_item" class="btn btn-info"  data-trans-title="'.__('strings.backend.general.newcode').'"><i class="fa fa-plus-square" data-toggle="tooltip" data-placement="top" title="Generate a new code"></i> Create Downline</a> ';
+          return '<a href="'.route('frontend.user.profile.newcode', $this).'" name="confirm_item" class="btn btn-info"  data-trans-title="'.__('strings.backend.general.newcode').'">Downline <i class="fa fa-plus-square" data-toggle="tooltip" data-placement="top" title="Create downline under this user"></i></a> ';
     }
     
     public function getUserActionButtonsAttribute()

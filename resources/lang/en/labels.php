@@ -138,6 +138,7 @@ return [
                     'permissions' => 'Permissions',
                     'roles'          => 'Roles',
                     'social' => 'Social',
+                    'is_user' => 'Is User?',
                     'total'          => 'user total|users total',
                 ],
 

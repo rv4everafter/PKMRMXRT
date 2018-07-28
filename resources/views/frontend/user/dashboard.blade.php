@@ -17,9 +17,11 @@
                     <i class="fa fa-dashboard"></i> {{ __('navs.frontend.dashboard') }} 
                 </strong>
                 <div style="float:right">
+                    @if($direct)
                     <div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
-                        <a href="{{route('frontend.user.profile.directcode')}}" name="confirm_item" class="btn btn-info"  data-trans-title="Do you want to create direct downline?"><i class="fa fa-plus-square" data-toggle="tooltip" data-placement="top" title="Create Direct Downline"></i> Create Direct Downline</a>
+                        <a href="{{route('frontend.user.profile.directcode')}}" name="confirm_item" class="btn btn-info"  data-trans-title="Do you want to create direct downline?">Direct Downline <i class="fa fa-plus-square" data-toggle="tooltip" data-placement="top" data-title="Create Direct Downline"></i></a>
                     </div>
+                    @endif
 
                 </div>
             </div><!--card-header-->
@@ -45,9 +47,9 @@
                                             <th>{{ __('labels.backend.access.users.table.enroller_id') }}</th>
                                             <th>{{ __('labels.backend.access.users.table.sponsor_id') }}</th>
                                             <th>{{ __('labels.backend.access.users.table.referral_code') }}</th>
-                                            <th>{{ __('labels.backend.access.users.table.last_name') }}</th>
-                                            <th>{{ __('labels.backend.access.users.table.first_name') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.name') }}</th>
                                             <th>{{ __('labels.backend.access.users.table.email') }}</th>
+                                            <th>{{ __('labels.backend.access.users.table.is_user') }}</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -59,10 +61,12 @@
                                             <td>{{ $user['enroller_id'] }}</td>
                                             <td>{{ $user['sponsor_id'] }}</td>
                                             <td>{{ $user['referral_code'] }}</td>
-                                            <td>{{ $user['last_name'] }}</td>
-                                            <td>{{ $user['first_name'] }}</td>
-                                            <td>{{ $user['email'] }}</td>
+                                            <td>{{ $user['first_name']." ".$user['last_name'] }}</td>
+                                            <td>{{ $user['email'] }}</td> 
+                                            <td>{!! $user->is_user_label !!}</td>
+                                            @if($user->direct)
                                             <td class="text-center">{!! $user->user_action_buttons !!}</td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                         @else
@@ -110,7 +114,7 @@
                     direction: 'UD'
                 }
             },
-            physics: false
+            physics: true,
         };
         // initialize your network!
         var network = new vis.Network(container, data, options);
@@ -228,8 +232,8 @@
                 title: "",
                 value: undefined,
                 widthConstraint: false,
-                x: 0,
-                y: 0
+                x: -500,
+                y: 150
             }
         }
         network.setOptions(options);

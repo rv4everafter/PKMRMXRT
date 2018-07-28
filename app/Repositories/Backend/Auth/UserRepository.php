@@ -84,7 +84,7 @@ class UserRepository extends BaseRepository
      */
     public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc') : LengthAwarePaginator
     {
-        return $this->model->where('sponsor_id','!=',null)
+        return $this->model->where('sponsor_id','!=',null)->where("isUser",1)
             ->with('roles', 'permissions', 'providers')
             ->active()
             ->orderBy($orderBy, $sort)
@@ -318,7 +318,7 @@ class UserRepository extends BaseRepository
         $level=1;
         do{
             $user=User::where('referral_code',$sponsor_id)->first();
-            if($user && $level<16){
+            if($user && $user->isUser && $level<16){
                 $transection = Transection::create([
                             'transection_to'        => $sponsor_id?$sponsor_id:null,
                             'transection_by'        => $referral_code?$referral_code:null,
@@ -326,13 +326,27 @@ class UserRepository extends BaseRepository
                             'type'                  => 'credit',
                             'commission_type'       => 'downline',
                             'amount'                => $downline_income,
+                            'other'                => $user->isUser,
                         ]);
 
                 $sponsor_id=$user->sponsor_id;
                 $level++;
-            }else{
+            }else if($user && !$user->isUser && $level<16){
+                $transection = Transection::create([
+                            'transection_to'        => $user->enroller_id?$user->enroller_id:null,
+                            'transection_by'        => $referral_code?$referral_code:null,
+                            'previous_bal'          => 0,
+                            'type'                  => 'credit',
+                            'commission_type'       => 'downline',
+                            'amount'                => $downline_income,
+                            'other'                => $user->isUser,
+                        ]);
+
+                $sponsor_id=$user->sponsor_id;
+                $level++;
+            } else{
                     break;
-                }
+            } 
         }
         while(1); 
        return $level;
@@ -352,6 +366,7 @@ class UserRepository extends BaseRepository
                             'type'                  => 'credit',
                             'commission_type'       => 'enroller',
                             'amount'                => $enroller_income['value'],
+                            'other'                => $user->isUser,
                         ]);
         }
     }

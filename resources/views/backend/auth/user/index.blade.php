@@ -30,8 +30,7 @@
                             <th>{{ __('labels.backend.access.users.table.enroller_id') }}</th>
                             <th>{{ __('labels.backend.access.users.table.sponsor_id') }}</th>
                             <th>{{ __('labels.backend.access.users.table.referral_code') }}</th>
-                            <th>{{ __('labels.backend.access.users.table.last_name') }}</th>
-                            <th>{{ __('labels.backend.access.users.table.first_name') }}</th>
+                            <th>{{ __('labels.backend.access.users.table.name') }}</th>
                             <th>{{ __('labels.backend.access.users.table.email') }}</th>
                             <th>{{ __('labels.backend.access.users.table.confirmed') }}</th>
                             <th>{{ __('labels.backend.access.users.table.last_updated') }}</th>
@@ -45,8 +44,7 @@
                                 <td>{{ $user->enroller_id }}</td>
                                 <td>{{ $user->sponsor_id }}</td>
                                 <td>{{ $user->referral_code }}</td>
-                                <td>{{ $user->last_name }}</td>
-                                <td>{{ $user->first_name }}</td>
+                                <td>{{ $user->first_name." ".$user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{!! $user->confirmed_label !!}</td>
                                 <td>{{ $user->updated_at->diffForHumans() }}</td>

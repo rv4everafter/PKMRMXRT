@@ -16,8 +16,17 @@
                 </h4>
             </div><!--col-->
 
-            <div class="col-sm-7">
-              
+           <div class="col-sm-7">
+                 {{ html()->form('GET', '' )->class('form-horizontal')->open() }}
+                    {{
+                        html()->select('monthFilter', ['01'=>'Jan', '02'=>'Feb', '03'=>'Mar', '04'=>'Apr', '05'=>'May', '06'=>'Jun', '07'=>'Jul',
+                            '08'=>'Aug', '09'=>'Sep', '10'=>'Oct', '11'=>'Nov', '12'=>'Dec'], (isset($_GET['monthFilter'])?$_GET['monthFilter']:date('m')))
+                    }}
+                    {{
+                        html()->select('yearFilter',array_combine(range(2017,date('Y',strtotime('+5 year'))),range(2017,date('Y',strtotime('+5 year')))),date('Y'))
+                    }}                
+                     {{ html()->submit('Go') }}
+                  {{ html()->form()->close() }}
             </div><!--col-->
         </div><!--row-->
 
