@@ -40,8 +40,8 @@ class CommissionRepository extends BaseRepository
                ->join('transections','users.referral_code','=','transections.transection_to')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','pending')
                 ->where('users.id','!=',3)
-                ->whereRaw("DATE(transections.created_at) >= '$firstdate'")
-               ->whereRaw("DATE(transections.created_at) <= '$lastdate'")
+//                ->whereRaw("DATE(transections.created_at) >= '$firstdate'")
+//               ->whereRaw("DATE(transections.created_at) <= '$lastdate'")
                 ->having(DB::raw('SUM(transections.amount)'),'<',500)
             ->orderBy($orderBy, $sort)
             ->groupBy('transections.transection_to','users.id','users.uuid','users.referral_code','users.first_name','users.last_name',
@@ -67,8 +67,8 @@ class CommissionRepository extends BaseRepository
                ->join('transections','users.referral_code','=','transections.transection_to')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','pending')
                 ->where('users.id','!=',3)
-                ->whereRaw("DATE(transections.created_at) >= '$firstdate'")
-               ->whereRaw("DATE(transections.created_at) <= '$lastdate'")
+//              O  ->whereRaw("DATE(transections.created_at) >= '$firstdate'")
+//               ->whereRaw("DATE(transections.created_at) <= '$lastdate'")
                 ->having(DB::raw('SUM(transections.amount)'),'>',500)
             ->orderBy($orderBy, $sort)
             ->groupBy('transections.transection_to','users.id','users.uuid','users.referral_code','users.first_name','users.last_name',
