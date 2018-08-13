@@ -50,7 +50,7 @@
                                     <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#userAccount{{$user->id}}" aria-expanded="false" aria-controls="collapseExample">
                                          A/c Details
                                     </button>
-                                    <a href="{{route('admin.auth.commission.paymented',$user)}}" class="btn btn-success"><i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Completed?"></i></a></td>
+                                   
                             </tr>
                             <tr>
                                 <td style="border:none;padding: 0" colspan="7">

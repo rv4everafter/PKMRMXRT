@@ -92,6 +92,7 @@ class CommissionRepository extends BaseRepository
                 ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')
                 ->where('users.id','!=',3)
+                ->where('transections.status',"completed")
                
                ->join('transections',function($join) use($firstdate,$lastdate){
                    $join->on('users.referral_code','=','transections.transection_to');
