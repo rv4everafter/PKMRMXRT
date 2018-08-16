@@ -36,7 +36,8 @@ class CommissionRepository extends BaseRepository
         $firstdate=date('Y-m-d',strtotime('01-'.$month.'-'.$year));
         $lastdate=date('Y-m-t',strtotime($firstdate));
         return $this->model->select(DB::raw('ROUND(SUM(transections.amount),2) as amount'),'users.referral_code','users.email','users.first_name'
-                ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
+                ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code',
+                'users.pan_no','users.phone','users.enroller_id','users.sponsor_id')
                ->join('transections','users.referral_code','=','transections.transection_to')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','pending')
                 ->where('users.id','!=',3)
@@ -45,7 +46,7 @@ class CommissionRepository extends BaseRepository
                 ->having(DB::raw('SUM(transections.amount)'),'<',500)
             ->orderBy($orderBy, $sort)
             ->groupBy('transections.transection_to','users.id','users.uuid','users.referral_code','users.first_name','users.last_name',
-                    'users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.email')
+                    'users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.email','users.pan_no','users.phone','users.enroller_id','users.sponsor_id')
             ->paginate($paged);
     }
 
@@ -63,7 +64,7 @@ class CommissionRepository extends BaseRepository
         $firstdate=date('Y-m-d',strtotime('01-'.$month.'-'.$year));
         $lastdate=date('Y-m-t',strtotime($firstdate));
         return $this->model->select(DB::raw('ROUND(SUM(transections.amount),2) as amount'),'users.id','users.referral_code','users.email','users.first_name'
-                ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
+                ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.pan_no','users.phone','users.enroller_id','users.sponsor_id')
                ->join('transections','users.referral_code','=','transections.transection_to')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')->where('transections.status','pending')
                 ->where('users.id','!=',3)
@@ -72,7 +73,7 @@ class CommissionRepository extends BaseRepository
                 ->having(DB::raw('SUM(transections.amount)'),'>',500)
             ->orderBy($orderBy, $sort)
             ->groupBy('transections.transection_to','users.id','users.uuid','users.referral_code','users.first_name','users.last_name',
-                    'users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.email')
+                    'users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.email','users.pan_no','users.phone','users.enroller_id','users.sponsor_id')
             ->paginate($paged);
     } 
     /**
@@ -89,7 +90,7 @@ class CommissionRepository extends BaseRepository
         $firstdate=date('Y-m-d',strtotime('01-'.$month.'-'.$year));
         $lastdate=date('Y-m-t',strtotime($firstdate));
         return $this->model->select(DB::raw('ROUND(SUM(transections.amount),2) as amount'),'users.referral_code','users.email','users.first_name'
-                ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code')
+                ,'users.last_name','users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.pan_no','users.phone','users.enroller_id','users.sponsor_id')
                 ->where('transections.transection_to','!=',null)->where('transections.type','credit')
                 ->where('users.id','!=',3)
                 ->where('transections.status',"completed")
@@ -101,7 +102,7 @@ class CommissionRepository extends BaseRepository
                ->whereRaw("DATE(transections.created_at) <= '$lastdate'")
             ->orderBy($orderBy, $sort)
             ->groupBy('transections.transection_to','users.id','users.uuid','users.referral_code','users.first_name','users.last_name',
-                    'users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.email')
+                    'users.account_no','users.account_title','users.bank_name','users.branch_name','users.ifcs','users.swift_code','users.email','users.pan_no','users.phone','users.enroller_id','users.sponsor_id')
             ->paginate($paged);
     }
     
